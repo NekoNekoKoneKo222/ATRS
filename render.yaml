@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: astral-archive
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: node apps/client/server.js
+    healthCheckPath: /
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
+
+# Supabase（クラウドセーブ・アカウント・WORKSHOP機能）を使いたい場合は、
+# デプロイ後にRenderダッシュボードの Environment タブから
+# VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY を追加してください（任意）。
+# 追加した場合は、値を反映するために一度 "Manual Deploy" で再ビルドしてください
+# （VITE_* はビルド時に静的ファイルへ埋め込まれるため）。
+# 未設定でもビルド・デプロイは成功し、ゲーム本編はオフラインで問題なく動作します。

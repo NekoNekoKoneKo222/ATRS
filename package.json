@@ -1,0 +1,22 @@
+{
+  "name": "astral-archive",
+  "private": true,
+  "version": "0.1.0",
+  "description": "ASTRAL ARCHIVE (working title) - original space strategy / base management game",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:client": "npm run dev --workspace apps/client"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
