@@ -1,0 +1,111 @@
+{
+  "id": "sector-01",
+  "name": "第一観測セクター",
+  "nodes": [
+    {
+      "id": "node_base",
+      "name": "星間観測基地",
+      "description": "すべての探索の起点となる自基地。",
+      "nodeType": "base",
+      "tier": 0,
+      "connections": ["node_planet_verrin", "node_planet_oxa"],
+      "encounters": [],
+      "source": "base"
+    },
+    {
+      "id": "node_planet_verrin",
+      "name": "ヴェリン惑星",
+      "description": "薄い大気に覆われた岩石惑星。旧時代の探査痕跡が点在する。",
+      "nodeType": "planet",
+      "tier": 1,
+      "connections": ["node_base", "node_asteroid_kesh"],
+      "encounters": [
+        { "id": "enc_verrin_resource", "type": "resource", "description": "地表付近で合金鉱脈を発見した。", "weight": 5, "resourceReward": { "ALLOY": 40, "CREDITS": 20 } },
+        { "id": "enc_verrin_ruins", "type": "ruins", "description": "旧時代の観測拠点跡を発見した。研究データを回収した。", "weight": 3, "resourceReward": { "RESEARCH_POINTS": 25 } },
+        { "id": "enc_verrin_npc", "type": "npc", "description": "遭難していた独立探査船のクルーを保護した。感謝の印として資源を受け取った。", "weight": 2, "resourceReward": { "CREDITS": 60 } }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_planet_oxa",
+      "name": "オクサ惑星",
+      "description": "強い磁場に覆われた氷惑星。観測機器が乱れることで知られる。",
+      "nodeType": "planet",
+      "tier": 1,
+      "connections": ["node_base", "node_station_halyn"],
+      "encounters": [
+        { "id": "enc_oxa_resource", "type": "resource", "description": "氷層の下からエネルギー結晶を採取した。", "weight": 5, "resourceReward": { "ENERGY": 30 } },
+        { "id": "enc_oxa_anomaly", "type": "anomaly", "description": "磁場異常の正体が「逆さの月」であると判明した。", "weight": 3, "anomalyId": "AA-014" },
+        { "id": "enc_oxa_event", "type": "event", "description": "強い磁気嵐に遭遇したが、事なきを得た。", "weight": 2 }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_asteroid_kesh",
+      "name": "ケシュ小惑星帯",
+      "description": "無数の小惑星が密集する採掘域。かつての採掘船団の残骸も漂う。",
+      "nodeType": "asteroidBelt",
+      "tier": 2,
+      "connections": ["node_planet_verrin", "node_station_halyn"],
+      "encounters": [
+        { "id": "enc_kesh_resource", "type": "resource", "description": "小惑星から高純度の合金資材を採掘した。", "weight": 6, "resourceReward": { "ALLOY": 70 } },
+        { "id": "enc_kesh_enemy", "type": "enemy", "description": "採掘域を縄張りとする無人機群と交戦になった。", "weight": 3, "enemyEncounterId": "encounter_scavenger_drones" },
+        { "id": "enc_kesh_event", "type": "event", "description": "デブリの密度が高く、慎重な航行を強いられた。", "weight": 1 }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_station_halyn",
+      "name": "ハリン宇宙ステーション",
+      "description": "かつて中継拠点として使われていた放棄ステーション。",
+      "nodeType": "spaceStation",
+      "tier": 2,
+      "connections": ["node_planet_oxa", "node_asteroid_kesh", "node_unknown_region"],
+      "encounters": [
+        { "id": "enc_halyn_resource", "type": "resource", "description": "格納庫に残された物資を回収した。", "weight": 4, "resourceReward": { "CREDITS": 90, "ALLOY": 20 } },
+        { "id": "enc_halyn_npc", "type": "npc", "description": "ステーションに潜んでいた技術者と接触し、情報提供を受けた。", "weight": 3, "resourceReward": { "RESEARCH_POINTS": 20 } },
+        { "id": "enc_halyn_ruins", "type": "ruins", "description": "封鎖された区画で旧型の観測ログを発見した。", "weight": 3, "resourceReward": { "RESEARCH_POINTS": 15 } }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_unknown_region",
+      "name": "未踏領域ゼータ",
+      "description": "既存の航路図に存在しない、観測困難な宙域。",
+      "nodeType": "unknownRegion",
+      "tier": 3,
+      "connections": ["node_station_halyn", "node_giant_thessia"],
+      "encounters": [
+        { "id": "enc_zeta_anomaly", "type": "anomaly", "description": "この宙域特有の星異体「空腹の恒星」の痕跡を発見した。", "weight": 4, "anomalyId": "AA-001" },
+        { "id": "enc_zeta_newplanet", "type": "newPlanet", "description": "航路図にない未知の惑星を新たに発見した。", "weight": 3, "resourceReward": { "RESEARCH_POINTS": 40 } },
+        { "id": "enc_zeta_enemy", "type": "enemy", "description": "領域を警戒する自律防衛システムと交戦した。", "weight": 3, "enemyEncounterId": "encounter_sentinel_construct" }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_giant_thessia",
+      "name": "巨大天体テシア",
+      "description": "惑星規模を超える質量を持つ、正体不明の天体。",
+      "nodeType": "giantCelestial",
+      "tier": 4,
+      "connections": ["node_unknown_region", "node_final_sanctum"],
+      "encounters": [
+        { "id": "enc_thessia_anomaly", "type": "anomaly", "description": "天体そのものが星異体である可能性を示す観測データを得た。", "weight": 5, "resourceReward": { "RESEARCH_POINTS": 60 } },
+        { "id": "enc_thessia_event", "type": "event", "description": "天体の重力に引き寄せられ、緊急退避を余儀なくされた。", "weight": 2 }
+      ],
+      "source": "base"
+    },
+    {
+      "id": "node_final_sanctum",
+      "name": "終域プレローマ",
+      "description": "現在の観測技術で到達できる限界点とされる最終領域。",
+      "nodeType": "finalRegion",
+      "tier": 5,
+      "connections": ["node_giant_thessia"],
+      "encounters": [
+        { "id": "enc_sanctum_boss", "type": "enemy", "description": "この領域を統べる強大な星異体との接触に成功した。", "weight": 1, "enemyEncounterId": "encounter_sanctum_guardian" }
+      ],
+      "source": "base"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+[
+  { "id": "HEAT", "name": "熱", "description": "恒星や高熱由来のエネルギー属性。", "color": "#ff6b35", "source": "base" },
+  { "id": "FROST", "name": "凍", "description": "極低温・凍結由来のエネルギー属性。", "color": "#7fd8ff", "source": "base" },
+  { "id": "VOLT", "name": "電", "description": "電磁・放電由来のエネルギー属性。", "color": "#f4d93e", "source": "base" },
+  { "id": "VOID", "name": "虚", "description": "未観測領域・虚無由来のエネルギー属性。", "color": "#5b3a8e", "source": "base" },
+  { "id": "GRAVITY", "name": "重力", "description": "重力異常由来のエネルギー属性。", "color": "#8a8f98", "source": "base" },
+  { "id": "LIGHT", "name": "光", "description": "光・観測由来のエネルギー属性。", "color": "#fff6d5", "source": "base" }
+]

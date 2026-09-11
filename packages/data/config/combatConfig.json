@@ -1,0 +1,21 @@
+{
+  "actionPoints": {
+    "maxActionPoints": 5,
+    "costs": {
+      "attack": 1,
+      "defend": 1,
+      "skill": 2,
+      "ultimate": 3,
+      "item": 1,
+      "wait": 0
+    },
+    "skillCostOverrides": {}
+  },
+  "boostGaugePerAction": 20,
+  "boostGaugeMax": 100,
+  "instabilityPerBoostUse": 8,
+  "breachThreshold": 100,
+  "defendDamageMultiplier": 0.5,
+  "itemHealAmount": 30,
+  "breachEnemyBuffMultiplier": 1.4
+}

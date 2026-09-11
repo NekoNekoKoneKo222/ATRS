@@ -1,0 +1,18 @@
+{
+  "resources": {
+    "ENERGY": 120,
+    "CREDITS": 800,
+    "RESEARCH_POINTS": 30,
+    "ALLOY": 150
+  },
+  "facilities": [
+    { "facilityId": "COMMAND", "level": 1 },
+    { "facilityId": "ENERGY", "level": 1 },
+    { "facilityId": "CREW", "level": 1 },
+    { "facilityId": "RESEARCH", "level": 0 },
+    { "facilityId": "CONTAINMENT", "level": 0 },
+    { "facilityId": "MEDICAL", "level": 0 },
+    { "facilityId": "ARMORY", "level": 0 },
+    { "facilityId": "OBSERVATORY", "level": 0 }
+  ]
+}

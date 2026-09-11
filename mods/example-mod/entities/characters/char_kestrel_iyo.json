@@ -1,0 +1,13 @@
+{
+  "id": "char_kestrel_iyo",
+  "name": "ケストレル・イヨ",
+  "description": "MODで追加された、辺境観測所出身の遊撃オペレーター。",
+  "baseStats": { "hp": 110, "maxHp": 110, "attack": 24, "defense": 12, "speed": 20, "mind": 14 },
+  "growthPerLevel": { "hp": 7, "attack": 2, "defense": 1, "speed": 2, "mind": 1 },
+  "affinity": { "HEAT": 1.0, "FROST": 1.0, "VOLT": 1.2, "VOID": 0.9, "GRAVITY": 1.0, "LIGHT": 0.95 },
+  "weaponSlot": "duelBlade",
+  "armorSlot": "lightSuit",
+  "skillIds": ["skill_rapid_strike"],
+  "passiveIds": ["passive_evasive_step"],
+  "source": "mod"
+}

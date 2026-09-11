@@ -1,0 +1,52 @@
+[
+  {
+    "id": "weapon_sidearm_pulse",
+    "name": "パルス・サイドアーム",
+    "description": "熱エネルギーを収束させる標準支給の携行武器。",
+    "slotType": "sidearm",
+    "attributeId": "HEAT",
+    "attackBonus": 4,
+    "criticalRateBonus": 0.02,
+    "source": "base"
+  },
+  {
+    "id": "weapon_research_rod_void",
+    "name": "深域リサーチロッド",
+    "description": "虚無由来のエネルギーを扱う研究用の杖型デバイス。",
+    "slotType": "researchRod",
+    "attributeId": "VOID",
+    "attackBonus": 6,
+    "criticalRateBonus": 0.03,
+    "source": "base"
+  },
+  {
+    "id": "weapon_heavy_launcher_grav",
+    "name": "重力式ヘビーランチャー",
+    "description": "局所的な重力場を撃ち出す大型武器。",
+    "slotType": "heavyLauncher",
+    "attributeId": "GRAVITY",
+    "attackBonus": 8,
+    "criticalRateBonus": 0.0,
+    "source": "base"
+  },
+  {
+    "id": "weapon_medkit_frost",
+    "name": "冷凍医療キット",
+    "description": "低温療法を応用した医療兼支援装備。",
+    "slotType": "medKit",
+    "attributeId": "FROST",
+    "attackBonus": 2,
+    "criticalRateBonus": 0.01,
+    "source": "base"
+  },
+  {
+    "id": "weapon_duel_blade_volt",
+    "name": "電磁デュエルブレード",
+    "description": "刀身に電流をまとわせる近接武器。",
+    "slotType": "duelBlade",
+    "attributeId": "VOLT",
+    "attackBonus": 5,
+    "criticalRateBonus": 0.05,
+    "source": "base"
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "stabilizeAmount": 10,
+  "degradeAmount": 15,
+  "unstableThreshold": 40
+}

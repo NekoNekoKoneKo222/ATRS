@@ -1,0 +1,218 @@
+[
+  {
+    "id": "COMMAND",
+    "name": "司令室",
+    "description": "基地全体の指揮・管理を行う中枢施設。上位レベルほど運営効率が上がる。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 200, "ALLOY": 20 },
+        "effectDescription": "基地収入+5クレジット/サイクル",
+        "effects": { "creditIncome": 5 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 500, "ALLOY": 50, "RESEARCH_POINTS": 20 },
+        "effectDescription": "基地収入+10クレジット/サイクル",
+        "effects": { "creditIncome": 10 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1200, "ALLOY": 120, "RESEARCH_POINTS": 60 },
+        "effectDescription": "基地収入+20クレジット/サイクル",
+        "effects": { "creditIncome": 20 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "RESEARCH",
+    "name": "研究棟",
+    "description": "星異体の研究データを解析する施設。研究速度が上昇する。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 250, "ALLOY": 15 },
+        "effectDescription": "研究速度+10%",
+        "effects": { "researchSpeed": 10 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 600, "ALLOY": 40, "RESEARCH_POINTS": 30 },
+        "effectDescription": "研究速度+20%",
+        "effects": { "researchSpeed": 20 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1400, "ALLOY": 100, "RESEARCH_POINTS": 80 },
+        "effectDescription": "研究速度+35%",
+        "effects": { "researchSpeed": 35 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "CONTAINMENT",
+    "name": "収容区画",
+    "description": "収容中の星異体を安定させる区画。収容キャパシティが増える。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 300, "ALLOY": 30 },
+        "effectDescription": "収容キャパシティ+1",
+        "effects": { "containmentCapacity": 1 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 700, "ALLOY": 70, "RESEARCH_POINTS": 25 },
+        "effectDescription": "収容キャパシティ+2",
+        "effects": { "containmentCapacity": 2 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1600, "ALLOY": 160, "RESEARCH_POINTS": 70 },
+        "effectDescription": "収容キャパシティ+3",
+        "effects": { "containmentCapacity": 3 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "MEDICAL",
+    "name": "医療区画",
+    "description": "負傷したクルーの治療を行う施設。戦闘後の回復速度が上がる。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 180, "ALLOY": 15 },
+        "effectDescription": "回復速度+10%",
+        "effects": { "medicalHealRate": 10 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 450, "ALLOY": 35, "RESEARCH_POINTS": 15 },
+        "effectDescription": "回復速度+20%",
+        "effects": { "medicalHealRate": 20 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1000, "ALLOY": 90, "RESEARCH_POINTS": 45 },
+        "effectDescription": "回復速度+35%",
+        "effects": { "medicalHealRate": 35 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "ARMORY",
+    "name": "兵装庫",
+    "description": "武器・防具を製造・保管する施設。装備スロットの補正が強化される。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 220, "ALLOY": 25 },
+        "effectDescription": "装備補正+5%",
+        "effects": { "armorySlotBonus": 5 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 550, "ALLOY": 60, "RESEARCH_POINTS": 20 },
+        "effectDescription": "装備補正+10%",
+        "effects": { "armorySlotBonus": 10 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1300, "ALLOY": 150, "RESEARCH_POINTS": 55 },
+        "effectDescription": "装備補正+18%",
+        "effects": { "armorySlotBonus": 18 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "OBSERVATORY",
+    "name": "観測塔",
+    "description": "周辺宙域を観測する施設。探索範囲・星異体発見率が向上する。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 260, "ALLOY": 20 },
+        "effectDescription": "観測範囲+1ノード",
+        "effects": { "observatoryScanRange": 1 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 620, "ALLOY": 55, "RESEARCH_POINTS": 25 },
+        "effectDescription": "観測範囲+2ノード",
+        "effects": { "observatoryScanRange": 2 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1450, "ALLOY": 130, "RESEARCH_POINTS": 65 },
+        "effectDescription": "観測範囲+4ノード",
+        "effects": { "observatoryScanRange": 4 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "CREW",
+    "name": "クルー居住区",
+    "description": "クルーの生活・訓練を支える区画。編成可能なクルー数が増える。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 240, "ALLOY": 20 },
+        "effectDescription": "クルー編成上限+1",
+        "effects": { "crewCapacity": 1 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 580, "ALLOY": 50, "RESEARCH_POINTS": 20 },
+        "effectDescription": "クルー編成上限+1",
+        "effects": { "crewCapacity": 1 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1350, "ALLOY": 120, "RESEARCH_POINTS": 60 },
+        "effectDescription": "クルー編成上限+2",
+        "effects": { "crewCapacity": 2 }
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "ENERGY",
+    "name": "エネルギープラント",
+    "description": "基地全体へエネルギーを供給する施設。エネルギー容量が拡張される。",
+    "maxLevel": 3,
+    "levels": [
+      {
+        "level": 1,
+        "upgradeCost": { "CREDITS": 200, "ALLOY": 25 },
+        "effectDescription": "エネルギー容量+50",
+        "effects": { "energyCapacity": 50 }
+      },
+      {
+        "level": 2,
+        "upgradeCost": { "CREDITS": 500, "ALLOY": 60, "RESEARCH_POINTS": 20 },
+        "effectDescription": "エネルギー容量+100",
+        "effects": { "energyCapacity": 100 }
+      },
+      {
+        "level": 3,
+        "upgradeCost": { "CREDITS": 1100, "ALLOY": 140, "RESEARCH_POINTS": 55 },
+        "effectDescription": "エネルギー容量+200",
+        "effects": { "energyCapacity": 200 }
+      }
+    ],
+    "source": "base"
+  }
+]

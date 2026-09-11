@@ -1,0 +1,12 @@
+{
+  "id": "example-mod",
+  "name": "Example Mod",
+  "author": "astral-archive-team",
+  "version": "0.1.0",
+  "game_version": ">=0.1.0",
+  "description": "MODフォーマットの実例を示すサンプルMOD。新規キャラクター1体を追加する。",
+  "dependencies": [],
+  "conflicts": [],
+  "priority": 10,
+  "schema_version": "1.0"
+}

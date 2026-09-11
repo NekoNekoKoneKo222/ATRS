@@ -1,0 +1,92 @@
+[
+  {
+    "id": "skill_focused_shot",
+    "name": "フォーカスショット",
+    "description": "狙いを定めて放つ精密射撃。命中率と威力が上昇する。",
+    "kind": "skill",
+    "attributeId": "HEAT",
+    "powerMultiplier": 1.3,
+    "source": "base"
+  },
+  {
+    "id": "skill_stabilize_field",
+    "name": "スタビライズ・フィールド",
+    "description": "対象周辺の時空を安定させ、虚無属性で干渉するスキル。",
+    "kind": "skill",
+    "attributeId": "VOID",
+    "powerMultiplier": 1.1,
+    "source": "base"
+  },
+  {
+    "id": "ultimate_null_pulse",
+    "name": "ヌル・パルス",
+    "description": "収束させた虚無エネルギーを一気に解放する特殊技。",
+    "kind": "ultimate",
+    "attributeId": "VOID",
+    "powerMultiplier": 2.0,
+    "source": "base"
+  },
+  {
+    "id": "skill_anomaly_probe",
+    "name": "アノマリー・プローブ",
+    "description": "星異体の弱点を解析しながら攻撃するスキル。",
+    "kind": "skill",
+    "attributeId": "VOID",
+    "powerMultiplier": 1.25,
+    "source": "base"
+  },
+  {
+    "id": "skill_containment_burst",
+    "name": "コンテインメント・バースト",
+    "description": "重力場を利用して対象の動きを制限しつつ攻撃するスキル。",
+    "kind": "skill",
+    "attributeId": "GRAVITY",
+    "powerMultiplier": 1.2,
+    "source": "base"
+  },
+  {
+    "id": "ultimate_deep_scan_overload",
+    "name": "ディープスキャン・オーバーロード",
+    "description": "観測データを過負荷させ、対象の性質そのものを揺さぶる特殊技。",
+    "kind": "ultimate",
+    "attributeId": "VOID",
+    "powerMultiplier": 2.2,
+    "source": "base"
+  },
+  {
+    "id": "skill_guard_wall",
+    "name": "ガードウォール",
+    "description": "重力障壁を展開しながら反撃するスキル。",
+    "kind": "skill",
+    "attributeId": "GRAVITY",
+    "powerMultiplier": 1.3,
+    "source": "base"
+  },
+  {
+    "id": "ultimate_bulwark_slam",
+    "name": "バルワーク・スラム",
+    "description": "重力障壁を叩きつけて広範囲に衝撃を与える特殊技。",
+    "kind": "ultimate",
+    "attributeId": "GRAVITY",
+    "powerMultiplier": 2.0,
+    "source": "base"
+  },
+  {
+    "id": "skill_field_repair",
+    "name": "フィールド・リペア",
+    "description": "冷凍療法技術を応用した支援攻撃スキル。",
+    "kind": "skill",
+    "attributeId": "FROST",
+    "powerMultiplier": 1.1,
+    "source": "base"
+  },
+  {
+    "id": "ultimate_full_restore",
+    "name": "フル・リストア",
+    "description": "光エネルギーを用いた大規模支援特殊技。",
+    "kind": "ultimate",
+    "attributeId": "LIGHT",
+    "powerMultiplier": 1.8,
+    "source": "base"
+  }
+]

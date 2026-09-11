@@ -1,0 +1,160 @@
+[
+  {
+    "id": "char_riko_vance",
+    "name": "リコ・ヴァンス",
+    "description": "観測基地に配属された新任オペレーター。冷静な判断力を持つ。",
+    "baseStats": {
+      "hp": 120,
+      "maxHp": 120,
+      "attack": 22,
+      "defense": 14,
+      "speed": 18,
+      "mind": 16
+    },
+    "growthPerLevel": {
+      "hp": 8,
+      "attack": 2,
+      "defense": 1,
+      "speed": 1,
+      "mind": 1
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": -10,
+      "VOLT": 0,
+      "VOID": 10,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "weaponSlot": "sidearm",
+    "armorSlot": "lightSuit",
+    "skillIds": [
+      "skill_focused_shot",
+      "skill_stabilize_field"
+    ],
+    "ultimateSkillId": "ultimate_null_pulse",
+    "passiveIds": [
+      "passive_steady_hands"
+    ],
+    "source": "base",
+    "startingWeaponId": "weapon_sidearm_pulse"
+  },
+  {
+    "id": "char_dahlia_okonkwo",
+    "name": "ダリア・オコンクウォ",
+    "description": "星異体研究のスペシャリスト。危険な現象にも動じない探究心を持つ。",
+    "baseStats": {
+      "hp": 100,
+      "maxHp": 100,
+      "attack": 26,
+      "defense": 10,
+      "speed": 14,
+      "mind": 22
+    },
+    "growthPerLevel": {
+      "hp": 6,
+      "attack": 3,
+      "defense": 1,
+      "speed": 1,
+      "mind": 2
+    },
+    "affinity": {
+      "HEAT": 10,
+      "FROST": 0,
+      "VOLT": -10,
+      "VOID": -20,
+      "GRAVITY": 5,
+      "LIGHT": 0
+    },
+    "weaponSlot": "researchRod",
+    "armorSlot": "fieldCoat",
+    "skillIds": [
+      "skill_anomaly_probe",
+      "skill_containment_burst"
+    ],
+    "ultimateSkillId": "ultimate_deep_scan_overload",
+    "passiveIds": [
+      "passive_curious_mind"
+    ],
+    "source": "base",
+    "startingWeaponId": "weapon_research_rod_void"
+  },
+  {
+    "id": "char_teo_marsh",
+    "name": "テオ・マーシュ",
+    "description": "基地防衛部隊出身の重装オペレーター。前線で仲間を守る。",
+    "baseStats": {
+      "hp": 150,
+      "maxHp": 150,
+      "attack": 20,
+      "defense": 24,
+      "speed": 8,
+      "mind": 10
+    },
+    "growthPerLevel": {
+      "hp": 10,
+      "attack": 2,
+      "defense": 2,
+      "speed": 1,
+      "mind": 1
+    },
+    "affinity": {
+      "HEAT": -10,
+      "FROST": 0,
+      "VOLT": 10,
+      "VOID": 0,
+      "GRAVITY": -10,
+      "LIGHT": 0
+    },
+    "weaponSlot": "heavyLauncher",
+    "armorSlot": "heavyPlating",
+    "skillIds": [
+      "skill_guard_wall"
+    ],
+    "ultimateSkillId": "ultimate_bulwark_slam",
+    "passiveIds": [
+      "passive_iron_resolve"
+    ],
+    "source": "base",
+    "startingWeaponId": "weapon_heavy_launcher_grav"
+  },
+  {
+    "id": "char_yuna_price",
+    "name": "ユナ・プライス",
+    "description": "医療班所属のフィールドメディック。仲間の回復を得意とする。",
+    "baseStats": {
+      "hp": 95,
+      "maxHp": 95,
+      "attack": 16,
+      "defense": 11,
+      "speed": 16,
+      "mind": 24
+    },
+    "growthPerLevel": {
+      "hp": 6,
+      "attack": 1,
+      "defense": 1,
+      "speed": 1,
+      "mind": 2
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": -5,
+      "VOLT": 0,
+      "VOID": 5,
+      "GRAVITY": 0,
+      "LIGHT": -10
+    },
+    "weaponSlot": "medKit",
+    "armorSlot": "fieldCoat",
+    "skillIds": [
+      "skill_field_repair"
+    ],
+    "ultimateSkillId": "ultimate_full_restore",
+    "passiveIds": [
+      "passive_calm_under_fire"
+    ],
+    "source": "base",
+    "startingWeaponId": "weapon_medkit_frost"
+  }
+]

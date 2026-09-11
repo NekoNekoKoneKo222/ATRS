@@ -1,0 +1,121 @@
+[
+  {
+    "id": "AA-001",
+    "name": "空腹の恒星",
+    "description": "近くのエネルギーを吸収し続ける、萎びた恒星の残骸。観測するたびに縮んでいるように見える。",
+    "rarity": "rare",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 480,
+      "maxHp": 480,
+      "attack": 34,
+      "defense": 18,
+      "speed": 6,
+      "mind": 40
+    },
+    "affinity": {
+      "HEAT": 50,
+      "FROST": -60,
+      "VOLT": 0,
+      "VOID": -10,
+      "GRAVITY": 10,
+      "LIGHT": 0
+    },
+    "attackAttribute": "HEAT",
+    "abilityIds": [
+      "ability_ember_drain",
+      "ability_collapse_pulse"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 30
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "収容エネルギーが枯渇すると暴走する"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 100,
+        "unlockDescription": "表面温度データの解析"
+      },
+      {
+        "stage": 2,
+        "requiredPoints": 300,
+        "unlockDescription": "内部エネルギー構造の解明"
+      }
+    ],
+    "drops": [
+      {
+        "itemId": "item_stellar_residue",
+        "weight": 1.0,
+        "minQty": 1,
+        "maxQty": 3
+      }
+    ],
+    "source": "base"
+  },
+  {
+    "id": "AA-014",
+    "name": "逆さの月",
+    "description": "観測者から見て常に裏側しか見せない小天体。重力の向きが局所的に反転している。",
+    "rarity": "epic",
+    "dangerLevel": 8,
+    "baseStats": {
+      "hp": 620,
+      "maxHp": 620,
+      "attack": 40,
+      "defense": 24,
+      "speed": 12,
+      "mind": 55
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 10,
+      "VOLT": 20,
+      "VOID": 0,
+      "GRAVITY": 60,
+      "LIGHT": -20
+    },
+    "attackAttribute": "GRAVITY",
+    "abilityIds": [
+      "ability_invert_field",
+      "ability_silent_orbit"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "重力反転が制御を超えると周囲の構造物を歪める"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 150,
+        "unlockDescription": "軌道パターンの記録"
+      }
+    ],
+    "drops": [
+      {
+        "itemId": "item_inverted_shard",
+        "weight": 0.6,
+        "minQty": 1,
+        "maxQty": 2
+      }
+    ],
+    "source": "base"
+  }
+]
