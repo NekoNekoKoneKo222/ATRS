@@ -1,0 +1,146 @@
+:root {
+  --aa-bg-void: #070a12;
+  --aa-bg-panel: #0e1420;
+  --aa-bg-panel-raised: #131b2c;
+  --aa-line: #24314a;
+  --aa-line-bright: #3a4d70;
+  --aa-text: #dbe6f5;
+  --aa-text-dim: #7c8aa8;
+  --aa-signal-amber: #e8a94c;
+  --aa-signal-teal: #4fd1c5;
+  --aa-signal-rose: #d1567b;
+  --aa-signal-violet: #9d8cff;
+  --aa-font-display: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+  --aa-font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--aa-bg-void);
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(79, 209, 197, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 110%, rgba(232, 169, 76, 0.06), transparent 45%);
+  color: var(--aa-text);
+  font-family: var(--aa-font-display);
+}
+
+.aa-mono {
+  font-family: var(--aa-font-mono);
+}
+
+.aa-panel {
+  background: var(--aa-bg-panel);
+  border: 1px solid var(--aa-line);
+  position: relative;
+  padding: 1rem 1.1rem;
+}
+
+/* コーナーブラケット：観測装置のターゲティング表示をモチーフにした装飾 */
+.aa-panel::before,
+.aa-panel::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--aa-signal-teal);
+  opacity: 0.7;
+}
+.aa-panel::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+.aa-panel::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+.aa-panel--enemy::before,
+.aa-panel--enemy::after {
+  border-color: var(--aa-signal-rose);
+}
+
+.aa-panel--breach {
+  border-color: var(--aa-signal-rose);
+  animation: aa-breach-pulse 1.6s ease-in-out infinite;
+}
+
+.aa-panel--breach::before,
+.aa-panel--breach::after {
+  border-color: var(--aa-signal-rose);
+}
+
+@keyframes aa-breach-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(209, 86, 123, 0);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(209, 86, 123, 0.55);
+  }
+}
+
+.aa-breach-banner {
+  border: 1px solid var(--aa-signal-rose);
+  background: rgba(209, 86, 123, 0.1);
+  color: var(--aa-signal-rose);
+  padding: 0.7rem 1rem;
+  font-family: var(--aa-font-display);
+  letter-spacing: 0.04em;
+  animation: aa-breach-pulse 1.6s ease-in-out infinite;
+}
+
+.aa-button {
+  font-family: var(--aa-font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  background: var(--aa-bg-panel-raised);
+  border: 1px solid var(--aa-line-bright);
+  color: var(--aa-text);
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.aa-button:hover:not(:disabled) {
+  border-color: var(--aa-signal-teal);
+  color: var(--aa-signal-teal);
+}
+
+.aa-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.aa-button--primary {
+  border-color: var(--aa-signal-amber);
+  color: var(--aa-signal-amber);
+}
+
+.aa-button--primary:hover:not(:disabled) {
+  background: rgba(232, 169, 76, 0.12);
+}
+
+.aa-bar-track {
+  height: 6px;
+  background: #050810;
+  border: 1px solid var(--aa-line);
+  overflow: hidden;
+}
+
+.aa-bar-fill {
+  height: 100%;
+  transition: width 0.25s ease;
+}
