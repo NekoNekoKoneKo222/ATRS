@@ -12,6 +12,7 @@ export default defineConfig({
           "vendor-react": ["react", "react-dom"],
           // Supabase関連は「アカウント/セーブ/WORKSHOP」タブでのみ実際に使われるため分離する
           "vendor-supabase": ["@supabase/supabase-js"],
+          "vendor-firebase": ["firebase/app", "firebase/auth", "firebase/firestore"],
         },
       },
     },

@@ -350,3 +350,11 @@ npm run dev:client  # デモUIを起動 (http://localhost:5173)
 ## ディレクトリ構成
 
 詳細は `docs/architecture.md` を参照。
+
+## 無料クラウドセーブ（Firebase Spark）
+
+旧Supabaseのプロジェクトが非アクティブで停止する問題に備え、Firebase Authentication + Cloud Firestore (Standard) のクラウドセーブに対応しています。
+Firebase設定値を `apps/client/.env.local` またはホスティングのビルド環境に登録し、`firestore.rules` をデプロイすると有効になります。
+未設定なら従来のSupabaseアカウント／セーブにフォールバックします。既存のSupabaseユーザーIDやセーブデータは自動でFirebaseに移されません。
+
+**重要:** Firebase無料枠も無期限・無制限を保証するサービスではありません。将来の規約変更・容量上限・アカウント停止等に備え、ローカルのデータを保管してください。詳細は [Firebase設定と移行手順](docs/firebase-setup.md) を参照してください。

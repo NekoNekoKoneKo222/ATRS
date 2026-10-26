@@ -3,6 +3,8 @@ import { useBase } from "./base/useBase.js";
 import { useContainment } from "./containment/useContainment.js";
 import { useExploration } from "./exploration/useExploration.js";
 import { useSupabaseAuth } from "./supabase/useSupabaseAuth.js";
+import { useFirebaseAuth } from "./firebase/useFirebaseAuth.js";
+import { firebaseConfigured } from "./firebase/firebaseClient.js";
 import { useMods } from "./mods/useMods.js";
 import { useStory } from "./story/useStory.js";
 
@@ -17,6 +19,7 @@ const ContainmentScreen = lazy(() =>
 );
 const CombatScreen = lazy(() => import("./combat/CombatScreen.js").then((m) => ({ default: m.CombatScreen })));
 const AuthScreen = lazy(() => import("./supabase/AuthScreen.js").then((m) => ({ default: m.AuthScreen })));
+const FirebaseAccountScreen = lazy(() => import("./firebase/FirebaseAccountScreen.js").then((m) => ({ default: m.FirebaseAccountScreen })));
 const SaveScreen = lazy(() => import("./save/SaveScreen.js").then((m) => ({ default: m.SaveScreen })));
 const ModManagerScreen = lazy(() =>
   import("./mods/ModManagerScreen.js").then((m) => ({ default: m.ModManagerScreen }))
@@ -63,6 +66,7 @@ export function App() {
     onAnomalyDiscovered: containment.discover,
   });
   const auth = useSupabaseAuth();
+  const firebaseAccount = useFirebaseAuth();
   const mods = useMods();
   const story = useStory({
     registries: mods.registries,
@@ -132,7 +136,16 @@ export function App() {
           />
         )}
         {screen === "combat" && <CombatScreen onEnemyDefeated={containment.discover} />}
-        {screen === "account" && (
+        {screen === "account" && (firebaseConfigured ? (
+          <FirebaseAccountScreen
+            status={firebaseAccount.status}
+            user={firebaseAccount.user}
+            errorMessage={firebaseAccount.errorMessage}
+            signUp={firebaseAccount.signUp}
+            signIn={firebaseAccount.signIn}
+            signOut={firebaseAccount.signOut}
+          />
+        ) : (
           <AuthScreen
             status={auth.status}
             session={auth.session}
@@ -141,7 +154,7 @@ export function App() {
             signIn={auth.signIn}
             signOut={auth.signOut}
           />
-        )}
+        ))}
         {screen === "save" && (
           <SaveScreen
             baseState={baseState}
@@ -153,6 +166,7 @@ export function App() {
             loadContainmentCollection={containment.loadContainmentCollection}
             loadStoryState={story.loadStoryState}
             session={auth.session}
+            firebaseUser={firebaseAccount.user}
           />
         )}
         {screen === "mods" && (
