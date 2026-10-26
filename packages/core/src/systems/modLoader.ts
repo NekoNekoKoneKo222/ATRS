@@ -5,11 +5,15 @@ import {
   WeaponDefinitionSchema,
   SkillDefinitionSchema,
   FacilityDefinitionSchema,
+  StoryEventDefinitionSchema,
+  ResearchRecordDefinitionSchema,
+  StoryChapterDefinitionSchema,
 } from "../data-loader/schemas.js";
 import type { CharacterDefinition } from "../types/character.js";
 import type { AnomalyDefinition } from "../types/anomaly.js";
 import type { WeaponDefinition, SkillDefinition } from "../types/equipment.js";
 import type { FacilityDefinition } from "../types/base.js";
+import type { StoryEventDefinition, ResearchRecordDefinition, StoryChapterDefinition } from "../types/story.js";
 
 /** MODが提供する1ファイル分の生データ */
 export interface ModEntityFile {
@@ -19,11 +23,21 @@ export interface ModEntityFile {
   content: string;
 }
 
-export type EntityKind = "character" | "anomaly" | "weapon" | "skill" | "facility" | "unknown";
+export type EntityKind =
+  | "character"
+  | "anomaly"
+  | "weapon"
+  | "skill"
+  | "facility"
+  | "story_event"
+  | "research_record"
+  | "story_chapter"
+  | "unknown";
 
 /**
  * ファイルパスの規約からエンティティ種別を判定する。
- * mod-spec.md の `entities/{characters,enemies,weapons,skills,facilities}/` 構成に対応する。
+ * mod-spec.md の `entities/{characters,enemies,weapons,skills,facilities,events,records,chapters}/`
+ * 構成に対応する（Phase13で events/records/chapters を追加）。
  */
 export function categorizeEntityFile(path: string): EntityKind {
   const normalized = path.replace(/\\/g, "/");
@@ -32,6 +46,9 @@ export function categorizeEntityFile(path: string): EntityKind {
   if (normalized.includes("entities/weapons/")) return "weapon";
   if (normalized.includes("entities/skills/")) return "skill";
   if (normalized.includes("entities/facilities/")) return "facility";
+  if (normalized.includes("entities/events/")) return "story_event";
+  if (normalized.includes("entities/records/")) return "research_record";
+  if (normalized.includes("entities/chapters/")) return "story_chapter";
   return "unknown";
 }
 
@@ -41,12 +58,25 @@ export interface LoadedModEntities {
   weapons: WeaponDefinition[];
   skills: SkillDefinition[];
   facilities: FacilityDefinition[];
+  storyEvents: StoryEventDefinition[];
+  researchRecords: ResearchRecordDefinition[];
+  storyChapters: StoryChapterDefinition[];
   /** パス付きのエラーメッセージ一覧（検証失敗・未知のファイルなど） */
   errors: string[];
 }
 
 function emptyLoadedEntities(): LoadedModEntities {
-  return { characters: [], anomalies: [], weapons: [], skills: [], facilities: [], errors: [] };
+  return {
+    characters: [],
+    anomalies: [],
+    weapons: [],
+    skills: [],
+    facilities: [],
+    storyEvents: [],
+    researchRecords: [],
+    storyChapters: [],
+    errors: [],
+  };
 }
 
 /**
@@ -91,6 +121,24 @@ export function loadModEntities(files: ModEntityFile[], sourceId: string): Loade
         else result.errors.push(...(r.errors ?? []).map((e) => `${file.path}: ${e}`));
         break;
       }
+      case "story_event": {
+        const r = loadJsonWithSchema(file.content, StoryEventDefinitionSchema, sourceId);
+        if (r.ok && r.value) result.storyEvents.push(r.value as StoryEventDefinition);
+        else result.errors.push(...(r.errors ?? []).map((e) => `${file.path}: ${e}`));
+        break;
+      }
+      case "research_record": {
+        const r = loadJsonWithSchema(file.content, ResearchRecordDefinitionSchema, sourceId);
+        if (r.ok && r.value) result.researchRecords.push(r.value as ResearchRecordDefinition);
+        else result.errors.push(...(r.errors ?? []).map((e) => `${file.path}: ${e}`));
+        break;
+      }
+      case "story_chapter": {
+        const r = loadJsonWithSchema(file.content, StoryChapterDefinitionSchema, sourceId);
+        if (r.ok && r.value) result.storyChapters.push(r.value as StoryChapterDefinition);
+        else result.errors.push(...(r.errors ?? []).map((e) => `${file.path}: ${e}`));
+        break;
+      }
       case "unknown":
         // manifest.json など、エンティティではない既知のファイルは静かに無視する
         if (!file.path.endsWith("manifest.json")) {
@@ -124,6 +172,13 @@ export interface EntityRegistrySet {
   weapons: DataRegistry<WeaponDefinition>;
   skills: DataRegistry<SkillDefinition>;
   facilities: DataRegistry<FacilityDefinition>;
+  storyEvents: DataRegistry<StoryEventDefinition>;
+  researchRecords: DataRegistry<ResearchRecordDefinition>;
+  /**
+   * StoryChapterDefinition.id は章番号(number)のため、id: string を要求する
+   * DataRegistry<T> には乗せられない。専用のマージ結果として配列で保持する。
+   */
+  storyChapters: StoryChapterDefinition[];
 }
 
 export function createEntityRegistrySet(): EntityRegistrySet {
@@ -133,6 +188,9 @@ export function createEntityRegistrySet(): EntityRegistrySet {
     weapons: new DataRegistry<WeaponDefinition>(),
     skills: new DataRegistry<SkillDefinition>(),
     facilities: new DataRegistry<FacilityDefinition>(),
+    storyEvents: new DataRegistry<StoryEventDefinition>(),
+    researchRecords: new DataRegistry<ResearchRecordDefinition>(),
+    storyChapters: [],
   };
 }
 
@@ -140,6 +198,35 @@ export interface EntitySource {
   sourceId: string;
   priority: number;
   entities: LoadedModEntities;
+}
+
+/**
+ * チャプター定義をID(章番号)ベースでマージする。
+ * DataRegistryと同様の優先度ルール（priorityが高い方が採用、同点なら後勝ち）を
+ * 手動で再現している（idがnumberのためDataRegistry<T>を使えないことによる）。
+ */
+export function mergeStoryChapters(
+  baseChapters: StoryChapterDefinition[],
+  mods: EntitySource[]
+): StoryChapterDefinition[] {
+  const byId = new Map<number, { chapter: StoryChapterDefinition; priority: number }>();
+
+  for (const chapter of baseChapters) {
+    byId.set(chapter.id, { chapter, priority: 0 });
+  }
+
+  for (const mod of mods) {
+    for (const chapter of mod.entities.storyChapters) {
+      const existing = byId.get(chapter.id);
+      if (!existing || mod.priority >= existing.priority) {
+        byId.set(chapter.id, { chapter, priority: mod.priority });
+      }
+    }
+  }
+
+  return Array.from(byId.values())
+    .map((v) => v.chapter)
+    .sort((a, b) => a.id - b.id);
 }
 
 /**
@@ -155,6 +242,8 @@ export function buildEntityRegistrySet(baseEntities: LoadedModEntities, mods: En
   populateRegistry(registries.weapons, baseEntities.weapons, "base", 0);
   populateRegistry(registries.skills, baseEntities.skills, "base", 0);
   populateRegistry(registries.facilities, baseEntities.facilities, "base", 0);
+  populateRegistry(registries.storyEvents, baseEntities.storyEvents, "base", 0);
+  populateRegistry(registries.researchRecords, baseEntities.researchRecords, "base", 0);
 
   for (const mod of mods) {
     populateRegistry(registries.characters, mod.entities.characters, mod.sourceId, mod.priority);
@@ -162,7 +251,11 @@ export function buildEntityRegistrySet(baseEntities: LoadedModEntities, mods: En
     populateRegistry(registries.weapons, mod.entities.weapons, mod.sourceId, mod.priority);
     populateRegistry(registries.skills, mod.entities.skills, mod.sourceId, mod.priority);
     populateRegistry(registries.facilities, mod.entities.facilities, mod.sourceId, mod.priority);
+    populateRegistry(registries.storyEvents, mod.entities.storyEvents, mod.sourceId, mod.priority);
+    populateRegistry(registries.researchRecords, mod.entities.researchRecords, mod.sourceId, mod.priority);
   }
+
+  registries.storyChapters = mergeStoryChapters(baseEntities.storyChapters, mods);
 
   return registries;
 }

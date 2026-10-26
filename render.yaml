@@ -9,9 +9,11 @@ services:
       - key: NODE_VERSION
         value: 20.11.0
 
-# Supabase（クラウドセーブ・アカウント・WORKSHOP機能）を使いたい場合は、
-# デプロイ後にRenderダッシュボードの Environment タブから
-# VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY を追加してください（任意）。
-# 追加した場合は、値を反映するために一度 "Manual Deploy" で再ビルドしてください
-# （VITE_* はビルド時に静的ファイルへ埋め込まれるため）。
-# 未設定でもビルド・デプロイは成功し、ゲーム本編はオフラインで問題なく動作します。
+# Firebase（アカウント＋Firestoreのクラウドセーブ）を使う場合は
+# Render Dashboard > Environment に VITE_FIREBASE_API_KEY,
+# VITE_FIREBASE_AUTH_DOMAIN, VITE_FIREBASE_PROJECT_ID, VITE_FIREBASE_APP_ID
+# を登録し、ビルドし直してください。これらはブラウザ公開用の設定値です。
+# 旧Supabaseの VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY は任意で残せます
+# （WORKSHOP と Firebase未設定時の既存アカウント／セーブ向け）。
+# 無料プランの制限・ルール導入方法: docs/firebase-setup.md
+

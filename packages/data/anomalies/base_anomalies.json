@@ -1,92 +1,180 @@
 [
   {
-    "id": "AA-001",
-    "name": "空腹の恒星",
-    "description": "近くのエネルギーを吸収し続ける、萎びた恒星の残骸。観測するたびに縮んでいるように見える。",
-    "rarity": "rare",
-    "dangerLevel": 6,
+    "id": "AA-000",
+    "name": "微睡みの残響",
+    "description": "基地近傍でごく微弱に検出される、情報的な揺らぎ。かつてこの宙域で記録された何かの残滓とみられるが、詳細は不明。危険度は極めて低く、ARCHIVISTの初期観測対象として基地側で確保されている。",
+    "rarity": "common",
+    "dangerLevel": 1,
     "baseStats": {
-      "hp": 480,
-      "maxHp": 480,
-      "attack": 34,
-      "defense": 18,
-      "speed": 6,
-      "mind": 40
+      "hp": 60,
+      "maxHp": 60,
+      "attack": 6,
+      "defense": 3,
+      "speed": 4,
+      "mind": 8
     },
     "affinity": {
-      "HEAT": 50,
-      "FROST": -60,
+      "HEAT": 0,
+      "FROST": 0,
       "VOLT": 0,
-      "VOID": -10,
-      "GRAVITY": 10,
-      "LIGHT": 0
+      "VOID": 20,
+      "GRAVITY": 0,
+      "LIGHT": -10
     },
-    "attackAttribute": "HEAT",
-    "abilityIds": [
-      "ability_ember_drain",
-      "ability_collapse_pulse"
-    ],
+    "attackAttribute": "VOID",
+    "abilityIds": [],
     "containmentConditions": [
       {
         "type": "energyBelow",
-        "value": 30
+        "value": 80
       }
     ],
     "breachConditions": [
       {
         "type": "instabilityMax",
         "value": 100,
-        "description": "収容エネルギーが枯渇すると暴走する"
+        "description": "微弱ながら情報的な揺らぎが基地システムに干渉する可能性がある"
       }
     ],
     "researchTrack": [
       {
         "stage": 1,
-        "requiredPoints": 100,
-        "unlockDescription": "表面温度データの解析"
-      },
-      {
-        "stage": 2,
-        "requiredPoints": 300,
-        "unlockDescription": "内部エネルギー構造の解明"
+        "requiredPoints": 30,
+        "unlockDescription": "揺らぎのパターンに周期性があることを確認した"
       }
     ],
-    "drops": [
-      {
-        "itemId": "item_stellar_residue",
-        "weight": 1.0,
-        "minQty": 1,
-        "maxQty": 3
-      }
-    ],
+    "drops": [],
+    "particleYieldPerCycle": 5,
     "source": "base"
   },
   {
-    "id": "AA-014",
-    "name": "逆さの月",
-    "description": "観測者から見て常に裏側しか見せない小天体。重力の向きが局所的に反転している。",
+    "id": "AA-001",
+    "name": "未完の太陽",
+    "description": "小型の恒星に見えるが、常に「完成していない」。周囲の光が周期的に消え、観測するたびに質量が変化する。星異粒子の生成量は非常に高い。",
     "rarity": "epic",
-    "dangerLevel": 8,
+    "dangerLevel": 6,
     "baseStats": {
-      "hp": 620,
-      "maxHp": 620,
-      "attack": 40,
-      "defense": 24,
-      "speed": 12,
-      "mind": 55
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": 30,
+      "FROST": -20,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "HEAT",
+    "abilityIds": [
+      "ability_day_night_cycle",
+      "ability_energy_drain"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 70
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "基地全体が一時的に昼状態になり、エネルギー消費が急増する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "収容中に一定時間ごとに「昼」と「夜」が切り替わることを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 31,
+    "source": "base"
+  },
+  {
+    "id": "AA-002",
+    "name": "歩く衛星",
+    "description": "小さな月のような天体。観測していないと少しずつ基地内部を移動する。OBSERVATORYで監視すると動きを止め、監視を解除すると再び移動し、移動先によって異なる効果を及ぼす。",
+    "rarity": "rare",
+    "dangerLevel": 4,
+    "baseStats": {
+      "hp": 220,
+      "maxHp": 220,
+      "attack": 20,
+      "defense": 12,
+      "speed": 9,
+      "mind": 20
     },
     "affinity": {
       "HEAT": 0,
-      "FROST": 10,
-      "VOLT": 20,
+      "FROST": 0,
+      "VOLT": -15,
       "VOID": 0,
-      "GRAVITY": 60,
-      "LIGHT": -20
+      "GRAVITY": 25,
+      "LIGHT": 0
     },
     "attackAttribute": "GRAVITY",
     "abilityIds": [
-      "ability_invert_field",
-      "ability_silent_orbit"
+      "ability_observation_lock",
+      "ability_relocation"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 80
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "監視が途切れた状態が続くと、基地内の予期しない区画へ移動して機能を阻害する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 70,
+        "unlockDescription": "「監視する」という行為そのものが管理条件になっていることを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 14,
+    "source": "base"
+  },
+  {
+    "id": "AA-003",
+    "name": "空白領域",
+    "description": "そこに何かが存在するように見えるが、実際には「何もない」。攻撃が当たることも外れることもあり、HPという概念自体が不安定。周囲のオブジェクトを一時的に認識不能にする。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 30,
+      "GRAVITY": 0,
+      "LIGHT": -20
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_unstable_hp",
+      "ability_perception_block"
     ],
     "containmentConditions": [
       {
@@ -98,24 +186,1382 @@
       {
         "type": "instabilityMax",
         "value": 100,
-        "description": "重力反転が制御を超えると周囲の構造物を歪める"
+        "description": "基地内に小さな空白領域が発生し、部屋の一部が使用不能になる。"
       }
     ],
     "researchTrack": [
       {
         "stage": 1,
-        "requiredPoints": 150,
-        "unlockDescription": "軌道パターンの記録"
+        "requiredPoints": 80,
+        "unlockDescription": "研究するほどデータそのものが減っていくという奇妙な性質を確認した。"
       }
     ],
-    "drops": [
+    "drops": [],
+    "particleYieldPerCycle": 15,
+    "source": "base"
+  },
+  {
+    "id": "AA-004",
+    "name": "逆流する彗星",
+    "description": "彗星のような姿だが、尾が前方に伸びている。数ターン前の状態に戻ることがあり、ダメージが回復する場合もあれば、過去に受けたダメージが突然発生することもある。特殊能力TEMPORAL RECALLで直前の状態を再現する。",
+    "rarity": "epic",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": -15,
+      "FROST": 20,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "FROST",
+    "abilityIds": [
+      "ability_temporal_recall"
+    ],
+    "containmentConditions": [
       {
-        "itemId": "item_inverted_shard",
-        "weight": 0.6,
-        "minQty": 1,
-        "maxQty": 2
+        "type": "energyBelow",
+        "value": 70
       }
     ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "時間逆行の影響が基地システムへ波及し、直前の状態へ強制的に巻き戻される。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "FROST・VOIDの双方に親和性を持つ、時間型の星異体であることが判明した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 26,
+    "source": "base"
+  },
+  {
+    "id": "AA-005",
+    "name": "眠らない星",
+    "description": "完全に暗い惑星。表面には大量の建造物があるが、生命反応は存在しない。睡眠・休息関連の概念に反応し、CREWの精神状態に影響を与える。夜間にだけ研究効率が上昇する。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -15,
+      "GRAVITY": 0,
+      "LIGHT": 25
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_sleep_resonance",
+      "ability_night_research_boost"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "CREW全体の精神状態が急激に不安定化する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 80,
+        "unlockDescription": "誰も住んでいないはずの惑星表面に、基地職員の名前が表示されることを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 15,
+    "source": "base"
+  },
+  {
+    "id": "AA-006",
+    "name": "星間遊泳体",
+    "description": "宇宙空間を泳ぐ巨大な生物。魚のようにも見えるが、身体の一部が星雲になっている。電力設備に反応し、ENERGY施設が高レベルだと接近率が上昇する。",
+    "rarity": "uncommon",
+    "dangerLevel": 3,
+    "baseStats": {
+      "hp": 180,
+      "maxHp": 180,
+      "attack": 17,
+      "defense": 10,
+      "speed": 8,
+      "mind": 17
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 20,
+      "VOID": 0,
+      "GRAVITY": -10,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOLT",
+    "abilityIds": [
+      "ability_high_speed",
+      "ability_energy_attraction"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "電力設備への接近が過熱し、ENERGY供給が一時的に乱れる。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 60,
+        "unlockDescription": "高速で移動する生態と、電力設備への強い反応性を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 11,
+    "source": "base"
+  },
+  {
+    "id": "AA-007",
+    "name": "観測者",
+    "description": "人型に近いシルエットだが、顔も身体構造も確認できない。プレイヤーが観測すると、観測者もプレイヤーを観測する。OBSERVATORYとの相互作用が重要で、観測回数によって研究データが変化する。戦闘では味方の行動パターンを学習する。",
+    "rarity": "epic",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 25,
+      "GRAVITY": 0,
+      "LIGHT": -15
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_mutual_observation",
+      "ability_pattern_learning"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 70
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "観測者が基地職員の行動パターンを完全に学習し、対抗手段を無効化してしまう。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "観測する側と観測される側が同時に成立するという、奇妙な相互観測現象を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 19,
+    "source": "base"
+  },
+  {
+    "id": "AA-008",
+    "name": "分裂する群体",
+    "description": "1体に見えるが、時間経過で増える。HPは低いが倒すと2体に分裂し、さらに一定条件で4体へ増える。数が増えるほど個体は弱くなる。倒すことが必ずしも正解ではない敵。",
+    "rarity": "uncommon",
+    "dangerLevel": 3,
+    "baseStats": {
+      "hp": 180,
+      "maxHp": 180,
+      "attack": 17,
+      "defense": 10,
+      "speed": 8,
+      "mind": 17
+    },
+    "affinity": {
+      "HEAT": 10,
+      "FROST": -25,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "HEAT",
+    "abilityIds": [
+      "ability_split_on_defeat"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "分裂した個体が基地内の複数区画へ同時に散らばる。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 60,
+        "unlockDescription": "分裂のたびに個体が弱体化していく法則性を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 10,
+    "source": "base"
+  },
+  {
+    "id": "AA-009",
+    "name": "透明な巨体",
+    "description": "ほぼ完全に透明。観測機器には巨大な生命反応だけが表示される。攻撃するまで正確な位置が分からず、特定の属性攻撃で輪郭が見える。研究が進むほど姿が判明する。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": -10,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 30,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_invisibility",
+      "ability_outline_reveal"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "不可視のまま基地内を徘徊し、接触するまで発見できなくなる。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 80,
+        "unlockDescription": "特定の属性攻撃を受けると輪郭が一時的に可視化される性質を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 15,
+    "source": "base"
+  },
+  {
+    "id": "AA-010",
+    "name": "落下する惑星",
+    "description": "宇宙空間に浮かぶ惑星だが「上」が存在しない。惑星そのものが徐々に基地へ落下している。時間経過で基地への接近度が上昇するが、特定の研究を完了すると軌道が安定する。",
+    "rarity": "epic",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": -15,
+      "VOID": 0,
+      "GRAVITY": 30,
+      "LIGHT": 0
+    },
+    "attackAttribute": "GRAVITY",
+    "abilityIds": [
+      "ability_gradual_approach",
+      "ability_orbit_stabilization"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 70
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "惑星の落下が臨界に達し、基地周辺の重力場が急激に乱れる。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "研究完了によって軌道そのものを安定させられることが判明した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 19,
+    "source": "base"
+  },
+  {
+    "id": "AA-011",
+    "name": "光を食べる雲",
+    "description": "巨大な暗黒星雲。近づいた星の光が消える。基地の照明・観測能力を低下させる代わりに、大量の星異粒子を生成する。危険だが非常に価値が高い、管理のジレンマを抱える星異体。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -10,
+      "GRAVITY": 0,
+      "LIGHT": 40
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_light_absorption",
+      "ability_high_particle_yield"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "基地全体の照明・観測機能が長時間停止する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 80,
+        "unlockDescription": "光を吸収するほど星異粒子の生成量が増加する相関関係を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 35,
+    "source": "base"
+  },
+  {
+    "id": "AA-012",
+    "name": "一秒の惑星",
+    "description": "惑星全体が1秒単位で状態を繰り返している。晴天・雷雨・夜などが高速で切り替わる。研究を進めると、この周期が徐々に変化していくことが確認されている。",
+    "rarity": "rare",
+    "dangerLevel": 4,
+    "baseStats": {
+      "hp": 220,
+      "maxHp": 220,
+      "attack": 20,
+      "defense": 12,
+      "speed": 9,
+      "mind": 20
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 15,
+      "VOID": 0,
+      "GRAVITY": -10,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOLT",
+    "abilityIds": [
+      "ability_rapid_state_cycle"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 80
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "状態変化の周期が制御不能になり、基地の環境系が同期を失う。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 70,
+        "unlockDescription": "観測を続けるほど周期そのものが変化していく現象を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 15,
+    "source": "base"
+  },
+  {
+    "id": "AA-013",
+    "name": "星の墓場",
+    "description": "大量の消滅した恒星が集まっている領域。中心に何かが存在する。HEAT・GRAVITY・VOIDの3属性を併せ持つ特殊な星異体。",
+    "rarity": "epic",
+    "dangerLevel": 7,
+    "baseStats": {
+      "hp": 340,
+      "maxHp": 340,
+      "attack": 29,
+      "defense": 18,
+      "speed": 12,
+      "mind": 29
+    },
+    "affinity": {
+      "HEAT": 20,
+      "FROST": -20,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "HEAT",
+    "abilityIds": [
+      "ability_triple_attribute"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "墓場に眠る恒星の残滓が同時に活性化し、複合的な異常が発生する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 100,
+        "unlockDescription": "HEAT・GRAVITY・VOIDの3属性が同一個体に共存する事例として記録した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 24,
+    "source": "base"
+  },
+  {
+    "id": "AA-014",
+    "name": "名前のない人",
+    "description": "基地のデータベースに突然登録される人物。入社記録もDNA情報も映像記録もなく、誰も会った記憶がない。それでも基地システム上では職員として存在している。研究が進むほど「名前のない人」の情報が増えていく。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 25,
+      "GRAVITY": 0,
+      "LIGHT": -20
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_phantom_registration"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "基地システム上の職員記録が一時的に矛盾し、認証システムが混乱する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 80,
+        "unlockDescription": "存在しないはずの人物データが、研究のたびに詳細化していく現象を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 16,
+    "source": "base"
+  },
+  {
+    "id": "AA-015",
+    "name": "忘却端末",
+    "description": "古いコンピューターのような星異体。触れたデータから少しずつ情報が消える。研究データを失う危険があるが、研究すると非常に珍しい情報系技術を獲得できる。",
+    "rarity": "uncommon",
+    "dangerLevel": 4,
+    "baseStats": {
+      "hp": 220,
+      "maxHp": 220,
+      "attack": 20,
+      "defense": 12,
+      "speed": 9,
+      "mind": 20
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": -10,
+      "VOID": 15,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_data_erosion"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 80
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "接続中の基地データベースの一部が消去される。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 70,
+        "unlockDescription": "情報を失うリスクと引き換えに、極めて珍しい情報系技術を得られることを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 13,
+    "source": "base"
+  },
+  {
+    "id": "AA-016",
+    "name": "記録される夢",
+    "description": "睡眠中のCREWが見る夢を収集する存在。夢の内容が星異粒子として結晶化する。CREWとの相性が重要で、精神力が高いキャラクターほど高品質な粒子を生成し、研究によって新しいスキルを解禁できる。",
+    "rarity": "uncommon",
+    "dangerLevel": 3,
+    "baseStats": {
+      "hp": 180,
+      "maxHp": 180,
+      "attack": 17,
+      "defense": 10,
+      "speed": 8,
+      "mind": 17
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -10,
+      "GRAVITY": 0,
+      "LIGHT": 15
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_dream_crystallization"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "CREWの夢の記録が暴走し、精神的な混乱を引き起こす。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 60,
+        "unlockDescription": "精神力の高い職員ほど高品質な星異粒子を生成することを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 18,
+    "source": "base"
+  },
+  {
+    "id": "AA-017",
+    "name": "六相獣",
+    "description": "6属性すべてに反応する生物。戦闘中にHEAT→FROST→VOLT→VOID→GRAVITY→LIGHTと属性を変えていく。プレイヤーは敵の現在属性を読んで戦う必要がある。",
+    "rarity": "epic",
+    "dangerLevel": 7,
+    "baseStats": {
+      "hp": 340,
+      "maxHp": 340,
+      "attack": 29,
+      "defense": 18,
+      "speed": 12,
+      "mind": 29
+    },
+    "affinity": {
+      "HEAT": 10,
+      "FROST": -10,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "HEAT",
+    "abilityIds": [
+      "ability_six_phase_cycle"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "属性の遷移が制御不能になり、周囲に無差別な属性エネルギーを放出する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 100,
+        "unlockDescription": "6属性を規則的に巡回する、稀有な多属性生態を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 22,
+    "source": "base"
+  },
+  {
+    "id": "AA-018",
+    "name": "反撃する装置",
+    "description": "生物ではなく、謎の巨大装置。こちらが攻撃すると「攻撃した方法」を記録し、同じ攻撃を何度も使うほど耐性が上昇する。対策としてパーティーの攻撃方法を分散させる必要がある。",
+    "rarity": "rare",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 20,
+      "VOID": -10,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOLT",
+    "abilityIds": [
+      "ability_attack_memory",
+      "ability_adaptive_resistance"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 70
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "記録した攻撃パターンへの耐性が全属性へ拡大してしまう。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "同一の攻撃手段を繰り返すほど耐性が上昇する適応機構を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 19,
+    "source": "base"
+  },
+  {
+    "id": "AA-019",
+    "name": "静止衛星",
+    "description": "一切動かないが、戦闘中プレイヤーが行動するたびに周囲の空間が変化する。攻撃すると距離が変わり、防御すると敵の防御が変わり、スキル使用で属性が変わる。プレイヤーの行動そのものが敵のギミックになる。",
+    "rarity": "rare",
+    "dangerLevel": 6,
+    "baseStats": {
+      "hp": 300,
+      "maxHp": 300,
+      "attack": 26,
+      "defense": 16,
+      "speed": 11,
+      "mind": 26
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 20,
+      "LIGHT": -10
+    },
+    "attackAttribute": "GRAVITY",
+    "abilityIds": [
+      "ability_action_reactive_field"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 70
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "周囲の空間変化が基地内部にまで及び、区画の配置が一時的に狂う。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 90,
+        "unlockDescription": "プレイヤーの行動選択そのものが管理変数になっている珍しい構造を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 19,
+    "source": "base"
+  },
+  {
+    "id": "AA-020",
+    "name": "境界星",
+    "description": "宇宙空間の「端」に存在するとされる星。実際には宇宙の境界ではなく「観測できる宇宙」と「観測できない宇宙」の境界に存在している。6属性への高い耐性を持ち、BOOSTに反応し、INSTABILITYを直接操作し、戦闘中にフィールドそのものを変化させる。",
+    "rarity": "singular",
+    "dangerLevel": 10,
+    "baseStats": {
+      "hp": 460,
+      "maxHp": 460,
+      "attack": 38,
+      "defense": 24,
+      "speed": 15,
+      "mind": 38
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 35,
+      "GRAVITY": 0,
+      "LIGHT": -10
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_boost_resonance",
+      "ability_instability_manipulation",
+      "ability_field_rewrite"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 50
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "観測可能領域と観測不能領域の境界が揺らぎ、基地全体のINSTABILITYが急上昇する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 130,
+        "unlockDescription": "6属性すべてに高い耐性を示す、境界領域特有の性質を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 45,
+    "source": "base"
+  },
+  {
+    "id": "AA-021",
+    "name": "未記録天体",
+    "description": "ゲーム内のあらゆるデータベースに存在しない天体。ところが探索マップには最初から存在している。研究を進めると「なぜ最初からマップに存在していたのか？」という謎が浮上する。",
+    "rarity": "epic",
+    "dangerLevel": 8,
+    "baseStats": {
+      "hp": 380,
+      "maxHp": 380,
+      "attack": 32,
+      "defense": 20,
+      "speed": 13,
+      "mind": 32
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -15,
+      "GRAVITY": 0,
+      "LIGHT": 20
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_unrecorded_presence"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 60
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "存在記録の矛盾が基地の観測ログ全体に伝播する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 110,
+        "unlockDescription": "データベースに存在しないはずの天体が、最初から観測範囲に含まれていた矛盾を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 28,
+    "source": "base"
+  },
+  {
+    "id": "AA-022",
+    "name": "終端観測体",
+    "description": "観測すると、観測対象ではなく観測結果そのものが変化する。研究レベルはLv1存在確認からLv6観測済みまで進むが、「観測済み」であるにも関わらず何を観測したのかというデータは残らない。",
+    "rarity": "epic",
+    "dangerLevel": 9,
+    "baseStats": {
+      "hp": 420,
+      "maxHp": 420,
+      "attack": 35,
+      "defense": 22,
+      "speed": 14,
+      "mind": 35
+    },
+    "affinity": {
+      "HEAT": -10,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 30,
+      "GRAVITY": 0,
+      "LIGHT": 0
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_observation_result_shift"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "観測結果の書き換えが基地の全観測ログへ波及する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 120,
+        "unlockDescription": "観測を完了しても、その内容がデータとして残らないという矛盾を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 32,
+    "source": "base"
+  },
+  {
+    "id": "AA-023",
+    "name": "終焉の観測端末",
+    "description": "施設内にいると戦闘中の防御力を上げてくれるが、観測された場合は端末にエラーが発生し戦闘になる。倒すとエラーが治り観測室に戻る。自身の防御を上げるほか、攻撃ボタンの位置を入れ替えてくる。",
+    "rarity": "epic",
+    "dangerLevel": 7,
+    "baseStats": {
+      "hp": 340,
+      "maxHp": 340,
+      "attack": 29,
+      "defense": 18,
+      "speed": 12,
+      "mind": 29
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -15,
+      "GRAVITY": 0,
+      "LIGHT": 20
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_defense_buff_field",
+      "ability_input_scramble"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "端末のエラーが基地全体の防御システムへ波及する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 100,
+        "unlockDescription": "観測の有無によって友好的な支援施設と戦闘対象を切り替える二面性を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 22,
+    "source": "base"
+  },
+  {
+    "id": "AA-024",
+    "name": "視界依存体",
+    "description": "収容室の中央に浮く小さな球体。一定時間プレイヤーの画面内に存在させ続けることが管理条件になっている。画面内に入れている時間が長いほど星異粒子を生成するが、視界から外すと安定度が低下し、最終的にBREACHする。BREACH後は基地内を移動し、画面内に入れた瞬間だけ動きを止める。",
+    "rarity": "rare",
+    "dangerLevel": 4,
+    "baseStats": {
+      "hp": 220,
+      "maxHp": 220,
+      "attack": 20,
+      "defense": 12,
+      "speed": 9,
+      "mind": 20
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 15,
+      "GRAVITY": 0,
+      "LIGHT": -10
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_observation_dependent_stability",
+      "ability_freeze_when_watched"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 80
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "視界から外れ続けた結果、安定度が失われ基地内を徘徊し始める。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 70,
+        "unlockDescription": "プレイヤーの視認そのものが安定度に直結する、観測依存型の性質を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 15,
+    "source": "base"
+  },
+  {
+    "id": "AA-025",
+    "name": "星の輝き",
+    "description": "ツール型の星異体。身につけていると戦闘全体の回復力が高まる。",
+    "rarity": "uncommon",
+    "dangerLevel": 2,
+    "baseStats": {
+      "hp": 140,
+      "maxHp": 140,
+      "attack": 14,
+      "defense": 8,
+      "speed": 7,
+      "mind": 14
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -10,
+      "GRAVITY": 0,
+      "LIGHT": 30
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_wearable_heal_field"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 90
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "輝きが不安定化し、回復効果が一時的に反転する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 50,
+        "unlockDescription": "装着型として運用できる、数少ない実用重視の星異体であることを確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 10,
+    "source": "base"
+  },
+  {
+    "id": "AA-026",
+    "name": "瞬間記録体",
+    "description": "一定時間ごとに画面内に入れる必要があるが、連続して見続けると逆に不安定になる。見る→少し離れる→再観測、という管理のバランスが求められる。",
+    "rarity": "rare",
+    "dangerLevel": 4,
+    "baseStats": {
+      "hp": 220,
+      "maxHp": 220,
+      "attack": 20,
+      "defense": 12,
+      "speed": 9,
+      "mind": 20
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": -10,
+      "GRAVITY": 0,
+      "LIGHT": 15
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_intermittent_observation"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 80
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "観測バランスが崩れ、記録内容が瞬間的に消失・暴走する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 70,
+        "unlockDescription": "観測しすぎても、しなさすぎても不安定化する繊細な管理条件を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 14,
+    "source": "base"
+  },
+  {
+    "id": "AA-027",
+    "name": "星のような異星粒子",
+    "description": "星異粒子が固まってできたツール型の存在。ブレスレットのように使用する。ダメージを受けると回復するが、一回の戦闘で3回ダメージを受けるとダメージが倍になる。",
+    "rarity": "uncommon",
+    "dangerLevel": 3,
+    "baseStats": {
+      "hp": 180,
+      "maxHp": 180,
+      "attack": 17,
+      "defense": 10,
+      "speed": 8,
+      "mind": 17
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": -10,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 20
+    },
+    "attackAttribute": "LIGHT",
+    "abilityIds": [
+      "ability_damage_reactive_heal",
+      "ability_overload_after_three_hits"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "蓄積した負荷が限界を超え、粒子構造が一時的に崩壊する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 60,
+        "unlockDescription": "装着者へのダメージ回数によって挙動が変化する、実用重視の性質を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 12,
+    "source": "base"
+  },
+  {
+    "id": "AA-028",
+    "name": "十二重環",
+    "description": "12個の「環」が存在し、各環は基地で起きた特定の行動や条件を記録している。条件が揃うほど環が発光し、12個すべてが共鳴すると隠しイベントが発生する。プレイヤーが育てた職員の戦闘データを最大12人分再現し、「記録された職員」として敵になる。全て倒すと十二重環自身が最後の敵として12人分のデータを吸収したARCHIVE FORMへ移行する。",
+    "rarity": "singular",
+    "dangerLevel": 10,
+    "baseStats": {
+      "hp": 460,
+      "maxHp": 460,
+      "attack": 38,
+      "defense": 24,
+      "speed": 15,
+      "mind": 38
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 30,
+      "GRAVITY": 0,
+      "LIGHT": -15
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_personnel_archive",
+      "ability_archive_form_transition"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 50
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "記録された職員データが暴走し、十二重環そのものが完全に覚醒する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 130,
+        "unlockDescription": "育成した職員の装備・属性・戦闘パターンまで再現する記録機構を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 40,
+    "source": "base"
+  },
+  {
+    "id": "AA-029",
+    "name": "未定義",
+    "description": "6属性のどれにも分類できない属性不定型の星異体。戦闘中に味方が使用した属性を記録し、次のターンにその属性を使用する。研究すると「属性そのもの」の研究データが増えていく。",
+    "rarity": "epic",
+    "dangerLevel": 8,
+    "baseStats": {
+      "hp": 380,
+      "maxHp": 380,
+      "attack": 32,
+      "defense": 20,
+      "speed": 13,
+      "mind": 32
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 0,
+      "GRAVITY": 0,
+      "LIGHT": 0,
+      "UNDEFINED": 20
+    },
+    "attackAttribute": "UNDEFINED",
+    "abilityIds": [
+      "ability_attribute_mirroring"
+    ],
+    "containmentConditions": [
+      {
+        "type": "energyBelow",
+        "value": 60
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "記録した属性が制御不能に増幅し、周囲へ無差別に放出される。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 110,
+        "unlockDescription": "既知の6属性のいずれにも当てはまらない、未分類のエネルギー特性を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 28,
+    "source": "base"
+  },
+  {
+    "id": "AA-030",
+    "name": "最初の記録",
+    "description": "ゲーム開始時から存在していたことになっている星異体。しかしプレイヤーが初めて図鑑を見るまで、誰もその存在を認識していない。研究を進めると、ATRS社が設立される前から宇宙側に記録されていたことが示唆される。",
+    "rarity": "rare",
+    "dangerLevel": 5,
+    "baseStats": {
+      "hp": 260,
+      "maxHp": 260,
+      "attack": 23,
+      "defense": 14,
+      "speed": 10,
+      "mind": 23
+    },
+    "affinity": {
+      "HEAT": 0,
+      "FROST": 0,
+      "VOLT": 0,
+      "VOID": 20,
+      "GRAVITY": 0,
+      "LIGHT": -10
+    },
+    "attackAttribute": "VOID",
+    "abilityIds": [
+      "ability_pre_existing_record"
+    ],
+    "containmentConditions": [
+      {
+        "type": "researchLevelAbove",
+        "value": 0
+      }
+    ],
+    "breachConditions": [
+      {
+        "type": "instabilityMax",
+        "value": 100,
+        "description": "登録日時の矛盾が基地の記録システム全体に伝播する。"
+      }
+    ],
+    "researchTrack": [
+      {
+        "stage": 1,
+        "requiredPoints": 80,
+        "unlockDescription": "登録日時がATRS社設立以前を示すという、時系列の矛盾を確認した。"
+      }
+    ],
+    "drops": [],
+    "particleYieldPerCycle": 20,
     "source": "base"
   }
 ]

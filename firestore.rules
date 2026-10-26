@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Assumed schema:
+    // users/{uid}/saves/{slot}: { slotName, gameVersion, saveSchemaVersion,
+    //   saveJson, updatedAt }. All saves contain private player progress.
+    // This app does not permit arbitrary client writes to MOD catalogues.
+    function isAuthenticated() { return request.auth != null; }
+    function isOwner(uid) { return isAuthenticated() && request.auth.uid == uid; }
+    function uidUnchanged(uid) { return request.auth.uid == uid; }
+    function uidNotModified(uid) { return request.auth.uid == uid; }
+
+    function isValidSave(data, slot) {
+      return slot.matches('^[a-zA-Z0-9_-]{1,64}$')
+        && data.keys().hasOnly(['slotName', 'gameVersion', 'saveSchemaVersion', 'saveJson', 'updatedAt'])
+        && data.keys().hasAll(['slotName', 'gameVersion', 'saveSchemaVersion', 'saveJson', 'updatedAt'])
+        && data.slotName is string && data.slotName == slot
+        && data.gameVersion is string && data.gameVersion.size() > 0 && data.gameVersion.size() <= 40
+        && data.saveSchemaVersion is string && data.saveSchemaVersion.size() > 0 && data.saveSchemaVersion.size() <= 40
+        && data.saveJson is string && data.saveJson.size() > 0 && data.saveJson.size() <= 256000
+        && data.updatedAt is timestamp && data.updatedAt == request.time;
+    }
+
+    match /users/{uid}/saves/{slot} {
+      allow get, list: if isOwner(uid);
+      allow create: if isOwner(uid) && uidUnchanged(uid) && isValidSave(request.resource.data, slot);
+      allow update: if isOwner(uid) && uidNotModified(uid) && isValidSave(request.resource.data, slot);
+      allow delete: if isOwner(uid);
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

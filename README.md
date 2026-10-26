@@ -265,6 +265,52 @@ Renderダッシュボードの「Environment」タブから`VITE_SUPABASE_URL` /
 追加後は再ビルドが必要）。未設定でもビルド・デプロイは成功し、ゲーム本編はオフラインで
 問題なく動作する。
 
+## Phase 13: ストーリーシステム + 第1話「着任」（完了）
+
+実装済み:
+
+- **ストーリーシステムの基礎**（`packages/core/src/systems/storySystem.ts`）：`StoryManager`として
+  純粋関数群を集約。チャプター開始・イベント進行・選択肢分岐・Research Record解禁・
+  ストーリーフラグ・チャプターロック判定・条件評価（`evaluateStoryCondition`、Phase14以降の
+  分岐に使える汎用インターフェース）をすべて実装
+- **データ駆動設計**：`packages/data/story/{chapters,events,records}/`にJSON形式で格納。
+  イベント種別（dialogue/narration/choice/notification/research_record/battle_start/
+  exploration_start/unlock/command/cinematic）に対応する柔軟な`StoryEventDefinition`型
+- **第1話「着任」**：21イベントの完全なストーリー（着任→ATRS社説明→星異体説明→星異粒子説明→
+  基地施設案内→チュートリアル星異体発見→初期任務→Research Record解禁→星異粒子付与→
+  Chapter1 COMPLETE）。実データによるエンドツーエンドの進行シミュレーションで、
+  全21イベントの到達・記録解禁・星異体発見・資源付与・Chapter2解禁までを確認済み
+- **チュートリアル星異体「AA-000 微睡みの残響」**を完全オリジナルで新規追加
+- **セーブ統合**：`SaveData.story`は**optional**にすることで、Phase12以前の古いセーブが
+  ロード時にクラッシュしないことを保証（後方互換性テストあり）
+- **MOD拡張基盤**：`entities/events/`, `entities/records/`, `entities/chapters/`からMODで
+  ストーリーを追加できる設計（チャプターはID(数値)のため専用マージ関数で統合）
+- 任意コード実行なし：commandイベントは既知のcommandId（`discover_anomaly`, `give_resources`）
+  のみ実行し、未知のcommandIdは警告ログを出して安全にスキップ
+- エラー処理：存在しないイベントID・チャプターID・空の話者/本文でもクラッシュせず、
+  安全なフォールバック値を返す設計を徹底
+- コアのテストを**173件**に拡充（Phase13で32件追加）し、**全件パス**。Phase1〜12の既存回帰も
+  すべて確認済み
+
+## 星異体カタログの刷新（AA-001〜AA-030）
+
+旧設定のAA-001「空腹の恒星」・AA-014「逆さの月」を削除し、新デザインのAA-001〜AA-030
+（30体）へ全面差し替えた。天体・生物・情報記憶・戦闘特化・ボスクラスまで幅広いテーマの
+星異体を`packages/data/anomalies/base_anomalies.json`に収録している。
+
+- Phase13のチュートリアル星異体「AA-000 微睡みの残響」はこのカタログとは別枠として維持
+  （ストーリーの`discover_anomaly`コマンドが参照しているため）
+- 各星異体は既存のスキーマ（`AnomalyDefinition`）にすべて準拠。ダメージ計算・収容・研究の
+  既存ロジックはそのまま機能する
+- 「昼夜サイクル」「視認判定によるBREACH」「十二重環の職員コピー」など、個体固有の複雑な
+  ギミックは`abilityIds`のラベルと`description`/`breachConditions.description`に反映済みだが、
+  実際のゲームロジックとしての実装は未着手（将来フェーズの対象）。現時点で数値的に機能するのは
+  HP/攻撃/防御/速度/精神・属性耐性・収容条件（`energyBelow`/`researchLevelAbove`）・
+  BREACH閾値・研究段階・星異粒子生成量のみ
+- 武器・防具データ（`base_weapons.json`）は今回のスコープ外（星異体データのみを差し替え）
+- 全31体（AA-000含む）をzodスキーマで検証済み。Phase13ストーリーとの整合性（AA-000参照）も
+  実データで再確認済み
+
 ## セットアップ
 
 ```bash
@@ -304,3 +350,11 @@ npm run dev:client  # デモUIを起動 (http://localhost:5173)
 ## ディレクトリ構成
 
 詳細は `docs/architecture.md` を参照。
+
+## 無料クラウドセーブ（Firebase Spark）
+
+旧Supabaseのプロジェクトが非アクティブで停止する問題に備え、Firebase Authentication + Cloud Firestore (Standard) のクラウドセーブに対応しています。
+Firebase設定値を `apps/client/.env.local` またはホスティングのビルド環境に登録し、`firestore.rules` をデプロイすると有効になります。
+未設定なら従来のSupabaseアカウント／セーブにフォールバックします。既存のSupabaseユーザーIDやセーブデータは自動でFirebaseに移されません。
+
+**重要:** Firebase無料枠も無期限・無制限を保証するサービスではありません。将来の規約変更・容量上限・アカウント停止等に備え、ローカルのデータを保管してください。詳細は [Firebase設定と移行手順](docs/firebase-setup.md) を参照してください。

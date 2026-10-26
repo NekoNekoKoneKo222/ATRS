@@ -83,6 +83,9 @@ ASTRAL ARCHIVEの属性システムは「HEATはFROSTに強い」といった属
 | 属性 | `packages/data/attributes` | `mods/*/entities/attributes`（属性の追加自体はMOD対応、既存属性の耐性値は各キャラ/星異体データ側で設定） |
 | 武器・スキル | `packages/data/weapons`, `packages/data/skills` | `mods/*/entities/weapons`, `mods/*/entities/skills` |
 | 武器・防具・スキル・アイテム・施設 | `packages/data/*` | `mods/*/entities/*`（Phase 5以降で追加） |
+| ストーリーイベント | `packages/data/story/events` | `mods/*/entities/events`（Phase 13で追加） |
+| 研究記録(Research Record) | `packages/data/story/records` | `mods/*/entities/records`（Phase 13で追加） |
+| ストーリーチャプター | `packages/data/story/chapters` | `mods/*/entities/chapters`（Phase 13で追加。IDは章番号のためDataRegistryではなく専用のマージ処理で統合） |
 
 ## MOD入りセーブとの関係
 

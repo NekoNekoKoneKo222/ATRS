@@ -1,16 +1,21 @@
 import { useCallback, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
+import type { User } from "firebase/auth";
+import { firebaseConfigured } from "../firebase/firebaseClient.js";
+import { saveToFirestore, loadFromFirestore } from "../firebase/firebaseCloudSave.js";
 import {
   createSaveData,
   serializeSaveData,
   deserializeSaveData,
   checkSaveModRequirements,
   compareSaveRecency,
+  createInitialStoryState,
   SaveDataSchema,
   type SaveData,
   type BaseState,
   type ExplorationState,
   type ContainmentCollection,
+  type StoryState,
 } from "@astral-archive/core";
 import { upsertCloudSave, fetchCloudSave, replaceSaveMods } from "@astral-archive/supabase";
 import { supabaseClient } from "../supabase/supabaseClient.js";
@@ -21,10 +26,15 @@ interface UseSaveDeps {
   baseState: BaseState;
   explorationState: ExplorationState;
   containmentCollection: ContainmentCollection;
+  /** Phase13で追加。省略時はストーリー進行を保存・復元しない（後方互換のためoptional）。 */
+  storyState?: StoryState;
   loadBaseState: (state: BaseState) => void;
   loadExplorationState: (state: ExplorationState) => void;
   loadContainmentCollection: (collection: ContainmentCollection) => void;
+  /** 省略可能：呼び出し元がストーリーシステムを持たない場合は何もしない */
+  loadStoryState?: (state: StoryState) => void;
   session: Session | null;
+  firebaseUser: User | null;
 }
 
 export interface ConflictInfo {
@@ -44,9 +54,10 @@ export function useSave(deps: UseSaveDeps) {
       base: deps.baseState,
       exploration: deps.explorationState,
       containment: deps.containmentCollection,
+      ...(deps.storyState ? { story: deps.storyState } : {}),
       mods: INSTALLED_MODS,
     });
-  }, [deps.baseState, deps.explorationState, deps.containmentCollection]);
+  }, [deps.baseState, deps.explorationState, deps.containmentCollection, deps.storyState]);
 
   /** MOD要件を確認し、満たしていればセーブ内容を実際のゲーム状態へ反映する */
   const applySave = useCallback(
@@ -66,6 +77,8 @@ export function useSave(deps: UseSaveDeps) {
       deps.loadBaseState(save.base);
       deps.loadExplorationState(save.exploration);
       deps.loadContainmentCollection(save.containment);
+      // Phase12以前のセーブにはstoryが無いため、初期状態で安全に補う
+      deps.loadStoryState?.(save.story ?? createInitialStoryState());
       setMessage(`セーブ「${save.meta.slotName}」を読み込みました（保存日時: ${save.meta.savedAt}）。`);
       return true;
     },
@@ -77,6 +90,41 @@ export function useSave(deps: UseSaveDeps) {
     const ok = writeLocalSave(DEFAULT_SLOT_NAME, serializeSaveData(save));
     setMessage(ok ? "ローカルに保存しました。" : "ローカル保存に失敗しました。");
   }, [buildCurrentSave]);
+
+  const exportSaveFile = useCallback(() => {
+    const raw = serializeSaveData(buildCurrentSave());
+    const blob = new Blob([raw], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "astral-archive-save.json";
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1_000);
+    setMessage("セーブデータをJSONファイルに書き出しました。");
+  }, [buildCurrentSave]);
+
+  const importSaveFile = useCallback(async (file: File) => {
+    if (file.size > 1_000_000) {
+      setMessage("ファイルが大きすぎます（最大1MB）。");
+      return;
+    }
+    try {
+      const raw = await file.text();
+      const parsed = deserializeSaveData(raw);
+      if (!parsed.ok) {
+        setMessage(parsed.error);
+        return;
+      }
+      if (applySave(parsed.data)) {
+        writeLocalSave(DEFAULT_SLOT_NAME, raw);
+        setMessage("セーブファイルを読み込んでローカルにも保存しました。");
+      }
+    } catch {
+      setMessage("セーブファイルの読み込みに失敗しました。");
+    }
+  }, [applySave]);
 
   const loadLocal = useCallback(() => {
     const raw = readLocalSave(DEFAULT_SLOT_NAME);
@@ -93,6 +141,19 @@ export function useSave(deps: UseSaveDeps) {
   }, [applySave]);
 
   const saveToCloud = useCallback(async () => {
+    if (firebaseConfigured) {
+      if (!deps.firebaseUser) {
+        setMessage("クラウド保存にはFirebaseでのサインインが必要です。");
+        return;
+      }
+      try {
+        await saveToFirestore(deps.firebaseUser.uid, buildCurrentSave());
+        setMessage("Firebase Firestoreに保存しました。");
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "Firebaseへの保存に失敗しました。");
+      }
+      return;
+    }
     if (!supabaseClient || !deps.session) {
       setMessage("クラウド保存にはサインインが必要です。");
       return;
@@ -113,9 +174,26 @@ export function useSave(deps: UseSaveDeps) {
 
     await replaceSaveMods(supabaseClient, result.data.id, save.mods);
     setMessage("クラウドに保存しました。");
-  }, [buildCurrentSave, deps.session]);
+  }, [buildCurrentSave, deps.session, deps.firebaseUser]);
 
   const loadCloud = useCallback(async () => {
+    if (firebaseConfigured) {
+      if (!deps.firebaseUser) {
+        setMessage("クラウド読み込みにはFirebaseでのサインインが必要です。");
+        return;
+      }
+      try {
+        const save = await loadFromFirestore(deps.firebaseUser.uid, DEFAULT_SLOT_NAME);
+        if (!save) {
+          setMessage("クラウドセーブが見つかりません。");
+          return;
+        }
+        applySave(save);
+      } catch (error) {
+        setMessage(error instanceof Error ? error.message : "Firebaseからの読み込みに失敗しました。");
+      }
+      return;
+    }
     if (!supabaseClient || !deps.session) {
       setMessage("クラウド読み込みにはサインインが必要です。");
       return;
@@ -131,7 +209,7 @@ export function useSave(deps: UseSaveDeps) {
       return;
     }
     applySave(parsed.data as SaveData);
-  }, [applySave, deps.session]);
+  }, [applySave, deps.session, deps.firebaseUser]);
 
   /** ローカルとクラウドの両方を確認し、両方に差異があれば選択待ちの競合情報を作る */
   const checkConflict = useCallback(async () => {
@@ -139,14 +217,22 @@ export function useSave(deps: UseSaveDeps) {
     const localResult = localRaw ? deserializeSaveData(localRaw) : null;
     const localSave = localResult?.ok ? localResult.data : null;
 
-    if (!supabaseClient || !deps.session) {
-      setMessage(localSave ? "ローカルセーブのみ存在します（クラウド未接続）。" : "ローカル・クラウドともにセーブが見つかりません。");
-      return;
+    let cloudSave: SaveData | null = null;
+    if (firebaseConfigured) {
+      if (deps.firebaseUser) {
+        try {
+          cloudSave = await loadFromFirestore(deps.firebaseUser.uid, DEFAULT_SLOT_NAME);
+        } catch (error) {
+          setMessage(error instanceof Error ? error.message : "クラウド比較に失敗しました。");
+          return;
+        }
+      }
+    } else if (supabaseClient && deps.session) {
+      const cloudResult = await fetchCloudSave(supabaseClient, deps.session.user.id, DEFAULT_SLOT_NAME);
+      const cloudParsed = cloudResult.ok && cloudResult.data ? SaveDataSchema.safeParse(cloudResult.data.save_data) : null;
+      cloudSave = cloudParsed?.success ? (cloudParsed.data as SaveData) : null;
     }
 
-    const cloudResult = await fetchCloudSave(supabaseClient, deps.session.user.id, DEFAULT_SLOT_NAME);
-    const cloudParsed = cloudResult.ok && cloudResult.data ? SaveDataSchema.safeParse(cloudResult.data.save_data) : null;
-    const cloudSave = cloudParsed?.success ? (cloudParsed.data as SaveData) : null;
 
     if (localSave && cloudSave) {
       const comparison = compareSaveRecency(localSave.meta.savedAt, cloudSave.meta.savedAt);
@@ -165,7 +251,7 @@ export function useSave(deps: UseSaveDeps) {
     } else {
       setMessage("ローカル・クラウドともにセーブが見つかりません。");
     }
-  }, [deps.session]);
+  }, [deps.session, deps.firebaseUser]);
 
   const resolveConflict = useCallback(
     (choice: "local" | "cloud") => {
@@ -181,6 +267,8 @@ export function useSave(deps: UseSaveDeps) {
     conflict,
     saveLocal,
     loadLocal,
+    exportSaveFile,
+    importSaveFile,
     saveToCloud,
     loadCloud,
     checkConflict,

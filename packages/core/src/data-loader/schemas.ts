@@ -68,6 +68,7 @@ export const AnomalyDefinitionSchema = z.object({
       maxQty: z.number().int().nonnegative(),
     })
   ),
+  particleYieldPerCycle: z.number().nonnegative().optional(),
   source: z.enum(["base", "mod"]),
 });
 
@@ -204,12 +205,69 @@ export const SaveMetaSchema = z.object({
   savedAt: z.string().min(1),
 });
 
+export const StoryChoiceOptionSchema = z.object({
+  id: z.string().min(1),
+  text: z.string(),
+  nextEventId: z.string().optional(),
+  setFlags: z.record(z.string(), z.union([z.boolean(), z.number(), z.string()])).optional(),
+});
+
+export const StoryEventDefinitionSchema = z.object({
+  id: z.string().min(1),
+  chapter: z.number().int().positive(),
+  type: z.string(),
+  speaker: z.string().optional(),
+  title: z.string().optional(),
+  text: z.string().optional(),
+  choices: z.array(StoryChoiceOptionSchema).optional(),
+  nextEventId: z.string().optional(),
+  unlockRecordId: z.string().optional(),
+  targetId: z.string().optional(),
+  commandId: z.string().optional(),
+  setFlags: z.record(z.string(), z.union([z.boolean(), z.number(), z.string()])).optional(),
+  payload: z.record(z.string(), z.unknown()).optional(),
+  source: z.enum(["base", "mod"]),
+});
+
+export const StoryChapterDefinitionSchema = z.object({
+  id: z.number().int().positive(),
+  title: z.string().min(1),
+  description: z.string(),
+  firstEventId: z.string().min(1),
+  source: z.enum(["base", "mod"]),
+});
+
+export const ResearchRecordDefinitionSchema = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  content: z.string(),
+  category: z.string().optional(),
+  source: z.enum(["base", "mod"]),
+});
+
+export const StoryFlagsSchema = z.record(z.string(), z.union([z.boolean(), z.number(), z.string()]));
+
+export const StoryStateSchema = z.object({
+  currentChapter: z.number().int().nonnegative(),
+  currentEventId: z.string().nullable(),
+  currentScene: z.string().nullable(),
+  completedEvents: z.array(z.string()),
+  unlockedRecords: z.array(z.string()),
+  storyFlags: StoryFlagsSchema,
+  discoveredAnomalies: z.array(z.string()),
+  requiredStoryVersion: z.string().min(1),
+});
+
 export const SaveDataSchema = z.object({
   meta: SaveMetaSchema,
   base: BaseStateSchema,
   exploration: ExplorationStateSchema,
   containment: ContainmentCollectionSchema,
   mods: z.array(SaveModEntrySchema),
+  // Phase12以前のセーブにはstoryフィールドが存在しないため、
+  // 古いセーブをロードしてもクラッシュしないようoptionalにする。
+  // 未設定の場合、呼び出し側で createInitialStoryState() を使って補う。
+  story: StoryStateSchema.optional(),
 });
 
 export const ModManifestSchema = z.object({
@@ -237,3 +295,7 @@ export type FacilityDefinitionParsed = z.infer<typeof FacilityDefinitionSchema>;
 export type GalaxyNodeDefinitionParsed = z.infer<typeof GalaxyNodeDefinitionSchema>;
 export type GalaxyMapDefinitionParsed = z.infer<typeof GalaxyMapDefinitionSchema>;
 export type SaveDataParsed = z.infer<typeof SaveDataSchema>;
+export type StoryEventDefinitionParsed = z.infer<typeof StoryEventDefinitionSchema>;
+export type StoryChapterDefinitionParsed = z.infer<typeof StoryChapterDefinitionSchema>;
+export type ResearchRecordDefinitionParsed = z.infer<typeof ResearchRecordDefinitionSchema>;
+export type StoryStateParsed = z.infer<typeof StoryStateSchema>;

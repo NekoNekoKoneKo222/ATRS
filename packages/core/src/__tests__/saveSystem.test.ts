@@ -214,3 +214,51 @@ test("compareSaveRecencyは新しい方を正しく判定する", () => {
 test("compareSaveRecencyは不正な日時文字列に対してsameへフォールバックする", () => {
   assert.equal(compareSaveRecency("not-a-date", "2026-01-01T00:00:00Z"), "same");
 });
+
+test("createSaveDataはstoryを省略すると初期ストーリー状態で補う（Phase13後方互換）", () => {
+  const save = createSaveData({
+    gameVersion: "0.1.0",
+    slotName: "slot1",
+    base: makeBaseState(),
+    exploration: makeExplorationState(),
+    containment: makeContainmentCollection(),
+    mods: [],
+  });
+
+  assert.ok(save.story);
+  assert.equal(save.story?.currentChapter, 0);
+  assert.deepEqual(save.story?.completedEvents, []);
+});
+
+test("Phase12以前のstoryフィールドが存在しないセーブデータもSaveDataSchemaの検証に合格する", () => {
+  const legacySaveWithoutStory = {
+    meta: { gameVersion: "0.1.0", saveSchemaVersion: "1.0", slotName: "slot1", savedAt: "2025-01-01T00:00:00Z" },
+    base: makeBaseState(),
+    exploration: makeExplorationState(),
+    containment: makeContainmentCollection(),
+    mods: [],
+    // story フィールドなし（Phase12以前のセーブを模している）
+  };
+
+  const result = SaveDataSchema.safeParse(legacySaveWithoutStory);
+  assert.equal(result.success, true);
+  if (result.success) {
+    assert.equal(result.data.story, undefined);
+  }
+});
+
+test("storyフィールドが無い古いセーブをdeserializeSaveDataで読み込んでもクラッシュしない", () => {
+  const legacySaveJson = JSON.stringify({
+    meta: { gameVersion: "0.1.0", saveSchemaVersion: "1.0", slotName: "slot1", savedAt: "2025-01-01T00:00:00Z" },
+    base: makeBaseState(),
+    exploration: makeExplorationState(),
+    containment: makeContainmentCollection(),
+    mods: [],
+  });
+
+  const result = deserializeSaveData(legacySaveJson);
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(result.data.story, undefined);
+  }
+});

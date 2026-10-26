@@ -12,7 +12,17 @@ import {
 import type { CharacterDefinition } from "../types/character.js";
 
 function emptyEntities(): LoadedModEntities {
-  return { characters: [], anomalies: [], weapons: [], skills: [], facilities: [], errors: [] };
+  return {
+    characters: [],
+    anomalies: [],
+    weapons: [],
+    skills: [],
+    facilities: [],
+    storyEvents: [],
+    researchRecords: [],
+    storyChapters: [],
+    errors: [],
+  };
 }
 
 const validCharacterJson = JSON.stringify({
@@ -171,4 +181,107 @@ test("buildEntityRegistrySetはpriorityが低いMODが本体データを上書�
   ]);
 
   assert.equal(registries.characters.get("char_x")?.name, "高優先度MOD版");
+});
+
+test("categorizeEntityFileはストーリーイベント/研究記録のパスを判定する（Phase13）", () => {
+  assert.equal(categorizeEntityFile("entities/events/chapter02_intro.json"), "story_event");
+  assert.equal(categorizeEntityFile("entities/records/record_002.json"), "research_record");
+});
+
+test("loadModEntitiesはMODが提供するストーリーイベントを読み込む", () => {
+  const files: ModEntityFile[] = [
+    {
+      path: "entities/events/mod_event.json",
+      content: JSON.stringify({
+        id: "mod_event_1",
+        chapter: 2,
+        type: "narration",
+        text: "MOD追加イベント",
+        source: "mod",
+      }),
+    },
+  ];
+
+  const result = loadModEntities(files, "example-mod");
+  assert.equal(result.storyEvents.length, 1);
+  assert.equal(result.storyEvents[0]?.id, "mod_event_1");
+  assert.equal(result.errors.length, 0);
+});
+
+test("loadModEntitiesはMODが提供する研究記録を読み込む", () => {
+  const files: ModEntityFile[] = [
+    {
+      path: "entities/records/mod_record.json",
+      content: JSON.stringify({
+        id: "mod_record_1",
+        title: "MOD追加記録",
+        content: "内容",
+        source: "mod",
+      }),
+    },
+  ];
+
+  const result = loadModEntities(files, "example-mod");
+  assert.equal(result.researchRecords.length, 1);
+  assert.equal(result.researchRecords[0]?.title, "MOD追加記録");
+  assert.equal(result.errors.length, 0);
+});
+
+test("loadModEntitiesは不正なストーリーイベントデータをエラーとして記録する", () => {
+  const files: ModEntityFile[] = [
+    { path: "entities/events/broken.json", content: JSON.stringify({ id: "" }) }, // chapter/type/source欠落
+  ];
+
+  const result = loadModEntities(files, "example-mod");
+  assert.equal(result.storyEvents.length, 0);
+  assert.ok(result.errors.length > 0);
+});
+
+test("buildEntityRegistrySetはストーリーイベント・研究記録も統合する", () => {
+  const baseEntities = emptyEntities();
+  baseEntities.storyEvents.push({ id: "ev_base", chapter: 1, type: "narration", text: "本体", source: "base" });
+  baseEntities.researchRecords.push({ id: "record_base", title: "本体記録", content: "内容", source: "base" });
+
+  const modEntities = emptyEntities();
+  modEntities.storyEvents.push({ id: "ev_mod", chapter: 2, type: "narration", text: "MOD", source: "mod" });
+
+  const registries = buildEntityRegistrySet(baseEntities, [
+    { sourceId: "example-mod", priority: 10, entities: modEntities },
+  ]);
+
+  assert.equal(registries.storyEvents.all().length, 2);
+  assert.equal(registries.researchRecords.get("record_base")?.title, "本体記録");
+});
+
+test("mergeStoryChaptersは本体チャプターとMODチャプターをID(章番号)順に統合する", () => {
+  const baseEntities = emptyEntities();
+  baseEntities.storyChapters.push({ id: 1, title: "第1章", description: "", firstEventId: "ev1", source: "base" });
+
+  const modEntities = emptyEntities();
+  modEntities.storyChapters.push({ id: 2, title: "MOD第2章", description: "", firstEventId: "ev2", source: "mod" });
+
+  const registries = buildEntityRegistrySet(baseEntities, [
+    { sourceId: "example-mod", priority: 10, entities: modEntities },
+  ]);
+
+  assert.equal(registries.storyChapters.length, 2);
+  assert.deepEqual(
+    registries.storyChapters.map((c) => c.id),
+    [1, 2]
+  );
+});
+
+test("mergeStoryChaptersはpriorityが高いMODが同じ章番号を上書きする", () => {
+  const baseEntities = emptyEntities();
+  baseEntities.storyChapters.push({ id: 1, title: "本体版", description: "", firstEventId: "ev1", source: "base" });
+
+  const modEntities = emptyEntities();
+  modEntities.storyChapters.push({ id: 1, title: "MOD版", description: "", firstEventId: "ev1_mod", source: "mod" });
+
+  const registries = buildEntityRegistrySet(baseEntities, [
+    { sourceId: "example-mod", priority: 10, entities: modEntities },
+  ]);
+
+  assert.equal(registries.storyChapters.length, 1);
+  assert.equal(registries.storyChapters[0]?.title, "MOD版");
 });

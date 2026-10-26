@@ -4,14 +4,16 @@
  * CREDITS: 基地運営費・購入に使う一般通貨
  * RESEARCH_POINTS: 星異体研究や施設研究に使うポイント
  * ALLOY: 施設建造・装備強化に使う資材
+ * ASTRAL_PARTICLES: 星異粒子。星異体から生成される特殊粒子で、基地運用・エネルギー・
+ *   ワープ技術など幅広い技術に利用される（Phase13で追加）。
  * MODで新たな資源種別を追加できるよう、キーは文字列として扱う。
  */
-export type ResourceId = "ENERGY" | "CREDITS" | "RESEARCH_POINTS" | "ALLOY" | string;
+export type ResourceId = "ENERGY" | "CREDITS" | "RESEARCH_POINTS" | "ALLOY" | "ASTRAL_PARTICLES" | string;
 
 export type ResourcePool = Record<ResourceId, number>;
 
 /** ゲーム本体が最初に同梱する初期資源ID一覧（MODで拡張可能） */
-export const BASE_RESOURCE_IDS = ["ENERGY", "CREDITS", "RESEARCH_POINTS", "ALLOY"] as const;
+export const BASE_RESOURCE_IDS = ["ENERGY", "CREDITS", "RESEARCH_POINTS", "ALLOY", "ASTRAL_PARTICLES"] as const;
 
 /**
  * 施設が持つ効果の種類。数値は「そのレベルで加算される効果量」を表す。

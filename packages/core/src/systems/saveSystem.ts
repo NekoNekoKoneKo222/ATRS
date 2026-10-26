@@ -2,6 +2,8 @@ import type { BaseState } from "../types/base.js";
 import type { ExplorationState } from "../types/exploration.js";
 import type { ContainmentCollection } from "../types/containment.js";
 import type { SaveData, SaveMeta, SaveModEntry, SaveMigration } from "../types/save.js";
+import type { StoryState } from "../types/story.js";
+import { createInitialStoryState } from "./storySystem.js";
 
 export const CURRENT_SAVE_SCHEMA_VERSION = "1.0";
 
@@ -12,6 +14,8 @@ export interface CreateSaveDataInput {
   exploration: ExplorationState;
   containment: ContainmentCollection;
   mods: SaveModEntry[];
+  /** 省略時は createInitialStoryState() で補う（Phase12以前の呼び出し互換のためoptional） */
+  story?: StoryState;
   /** テスト等で保存時刻を固定したい場合に注入する。省略時は現在時刻。 */
   now?: () => Date;
 }
@@ -32,6 +36,7 @@ export function createSaveData(input: CreateSaveDataInput): SaveData {
     exploration: input.exploration,
     containment: input.containment,
     mods: input.mods,
+    story: input.story ?? createInitialStoryState(),
   };
 }
 

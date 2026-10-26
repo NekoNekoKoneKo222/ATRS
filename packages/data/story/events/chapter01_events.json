@@ -1,0 +1,192 @@
+[
+  {
+    "id": "chapter01_intro",
+    "chapter": 1,
+    "type": "narration",
+    "title": "ASTRAL ARCHIVE CHAPTER 01 — 着任",
+    "text": "漆黒の宇宙空間。\n輸送艇の窓の向こうに、環状に連なる巨大な構造体が見えてくる。\n星間観測基地——ATRS社が宇宙各地に展開する、星異体観測・研究拠点のひとつ。\nその一つへ、あなたは今まさに向かっている。",
+    "nextEventId": "chapter01_transmission",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_transmission",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "着任コード確認。……認証完了。\nようこそ、星間観測基地へ。\nあなたのコードネームは「ARCHIVIST」として登録されました。\n本名および経歴に関する記録は、本基地内では参照されません。",
+    "nextEventId": "chapter01_atrs_intro",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_atrs_intro",
+    "chapter": 1,
+    "type": "narration",
+    "text": "ATRS社。\n宇宙各地に観測基地を展開し、既知の物理法則では説明のつかない現象——「星異体」の観測・研究・管理を行う組織。\nARCHIVISTとして着任したあなたの役割は、この基地を運用し、星異体と向き合うことになる。",
+    "nextEventId": "chapter01_anomaly_explain_1",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_anomaly_explain_1",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "星異体（Astral Anomaly）について、基礎情報を送信します。\n星異体とは——宇宙に存在する、既知の法則では説明できない異常存在の総称です。",
+    "nextEventId": "chapter01_anomaly_explain_2",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_anomaly_explain_2",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "未知の生命体だけを指す言葉ではありません。\n異常な天体、歪んだ空間、乱れた時間、説明不能なエネルギー、局所的な重力異常、そして——情報そのものに関係する異常。\nこれらすべてが「星異体」として分類されます。",
+    "nextEventId": "chapter01_particle_1",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_particle_1",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "次に、星異粒子（Astral Particle）について説明します。\n星異体からは、特殊な粒子が生成・抽出されることが確認されています。\nこれが星異粒子です。",
+    "nextEventId": "chapter01_particle_2",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_particle_2",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "星異粒子は現在の人類文明において非常に高い利用価値を持ちます。\n基地運用、エネルギー供給、ワープ技術、医療、装備開発、AI、惑星開発——\n数えきれないほどの技術がこの粒子に依存しています。",
+    "nextEventId": "chapter01_particle_3",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_particle_3",
+    "chapter": 1,
+    "type": "research_record",
+    "speaker": "基地通信システム",
+    "text": "ただし、注記があります。\n「なぜ星異粒子がこのような性質を持つのか」——その根本原理は、現在の科学でもまだ完全には解明されていません。\n初期観測データを研究記録として保存しておきます。",
+    "unlockRecordId": "record_001",
+    "nextEventId": "chapter01_base_tour_intro",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_tour_intro",
+    "chapter": 1,
+    "type": "narration",
+    "text": "通信が一旦途切れ、格納庫の扉が開く。\n基地内へ足を踏み入れると、各施設への案内表示が目に入る。\nこれから、この基地を構成する主要な区画を確認していく。",
+    "nextEventId": "chapter01_base_command",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_command",
+    "chapter": 1,
+    "type": "notification",
+    "title": "COMMAND — 司令室",
+    "text": "基地全体の指揮・管理を行う中枢施設。すべての意思決定はここから発せられる。",
+    "nextEventId": "chapter01_base_research",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_research",
+    "chapter": 1,
+    "type": "notification",
+    "title": "RESEARCH — 研究棟",
+    "text": "星異体・星異粒子の研究データを解析する施設。解析が進むほど、その正体に近づいていく。",
+    "nextEventId": "chapter01_base_containment",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_containment",
+    "chapter": 1,
+    "type": "notification",
+    "title": "CONTAINMENT — 収容区画",
+    "text": "収容中の星異体を安定させる区画。管理条件を満たせなければ、収容は崩れる。",
+    "nextEventId": "chapter01_base_medical",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_medical",
+    "chapter": 1,
+    "type": "notification",
+    "title": "MEDICAL — 医療区画",
+    "text": "負傷したクルーの治療を行う施設。星異体との接触は、時として危険を伴う。",
+    "nextEventId": "chapter01_base_armory",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_armory",
+    "chapter": 1,
+    "type": "notification",
+    "title": "ARMORY — 兵装庫",
+    "text": "武器・防具を製造・保管する施設。星異粒子を応用した装備がここで生み出される。",
+    "nextEventId": "chapter01_base_observatory",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_observatory",
+    "chapter": 1,
+    "type": "notification",
+    "title": "OBSERVATORY — 観測塔",
+    "text": "周辺宙域を観測する施設。新たな星異体は、まずここから発見される。",
+    "nextEventId": "chapter01_base_crew",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_crew",
+    "chapter": 1,
+    "type": "notification",
+    "title": "CREW — クルー居住区",
+    "text": "クルーの生活・訓練を支える区画。ARCHIVISTを支える仲間たちがここで暮らす。",
+    "nextEventId": "chapter01_base_energy",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_base_energy",
+    "chapter": 1,
+    "type": "notification",
+    "title": "ENERGY — エネルギープラント",
+    "text": "基地全体へエネルギーを供給する施設。基地機能の多くはここに支えられている。",
+    "nextEventId": "chapter01_first_anomaly",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_first_anomaly",
+    "chapter": 1,
+    "type": "command",
+    "speaker": "基地通信システム",
+    "text": "アラート。観測塔が、基地近傍にごく小規模な星異体反応を検出しました。\n危険度は低いと判定されています。初めての観測対象として、記録に追加します。",
+    "commandId": "discover_anomaly",
+    "targetId": "AA-000",
+    "nextEventId": "chapter01_mission_briefing",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_mission_briefing",
+    "chapter": 1,
+    "type": "dialogue",
+    "speaker": "基地通信システム",
+    "text": "ARCHIVISTへ、初期任務を送信します。\n\n1. 基地の状態を確認する\n2. 観測システムを起動する\n3. 最初の星異体データを確認する\n4. 研究システムを確認する\n5. 星異粒子を一定量確保する\n\n以上の確認が完了次第、通常運用へ移行してください。",
+    "nextEventId": "chapter01_particle_reward",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_particle_reward",
+    "chapter": 1,
+    "type": "command",
+    "text": "基地の初期稼働に伴い、備蓄されていた星異粒子の一部が運用資源として解放された。",
+    "commandId": "give_resources",
+    "payload": { "resource": "ASTRAL_PARTICLES", "amount": 50 },
+    "nextEventId": "chapter01_complete",
+    "source": "base"
+  },
+  {
+    "id": "chapter01_complete",
+    "chapter": 1,
+    "type": "notification",
+    "title": "CHAPTER 01 COMPLETE",
+    "text": "着任手続きが完了しました。\nここからは、ARCHIVISTとして基地の運用・星異体の観測と研究・宇宙探索を自由に進めてください。",
+    "source": "base"
+  }
+]
