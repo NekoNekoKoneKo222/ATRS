@@ -1,6 +1,7 @@
 import type { BaseState } from "./base.js";
 import type { ExplorationState } from "./exploration.js";
 import type { ContainmentCollection } from "./containment.js";
+import type { StoryState } from "./story.js";
 
 export interface SaveModEntry {
   modId: string;
@@ -20,10 +21,14 @@ export interface SaveMeta {
 
 /**
  * セーブデータ本体。
- * 現時点で永続化対象として実装済みのシステム（基地・探索・収容/研究）を保持する。
- * キャラクター育成・アイテム・ストーリー進行は、対応するゲームシステムが実装された
- * フェーズでこの型に追加していく想定（現状のプレイヤーキャラクターは戦闘開始時に
- * packages/data から都度生成される固定編成のため、まだ永続化対象がない）。
+ * 現時点で永続化対象として実装済みのシステム（基地・探索・収容/研究・ストーリー進行）を保持する。
+ * キャラクター育成・アイテムは、対応するゲームシステムが実装されたフェーズでこの型に
+ * 追加していく想定（現状のプレイヤーキャラクターは戦闘開始時に packages/data から
+ * 都度生成される固定編成のため、まだ永続化対象がない）。
+ *
+ * storyはPhase13で追加されたためoptionalにしている。Phase12以前に作られた
+ * 古いセーブにはこのフィールドが存在しないが、ロード時にクラッシュさせず
+ * 初期状態（createInitialStoryState()）で補うことを想定した設計。
  */
 export interface SaveData {
   meta: SaveMeta;
@@ -31,6 +36,7 @@ export interface SaveData {
   exploration: ExplorationState;
   containment: ContainmentCollection;
   mods: SaveModEntry[];
+  story?: StoryState;
 }
 
 export interface SaveMigration {

@@ -23,11 +23,25 @@
   "mods": [
     { "modId": "cosmic-creatures", "modVersion": "1.2.0" },
     { "modId": "new-weapons", "modVersion": "2.0.1" }
-  ]
+  ],
+  "story": {
+    "currentChapter": 1,
+    "currentEventId": null,
+    "currentScene": null,
+    "completedEvents": [ "chapter01_intro", "..." ],
+    "unlockedRecords": [ "record_001" ],
+    "storyFlags": { "chapter02_locked": false },
+    "discoveredAnomalies": [ "AA-000" ],
+    "requiredStoryVersion": "1.0"
+  }
 }
 ```
 
-キャラクター育成・アイテム・ストーリー進行は、対応するゲームシステムが実装された時点で
+`story` はPhase13で追加されたフィールドであり **optional** である。Phase12以前に作られた
+セーブにはこのフィールドが存在しないが、ロード時にクラッシュさせず
+`createInitialStoryState()` の初期状態で安全に補う（`useSave.applySave()` 参照）。
+
+キャラクター育成・アイテムは、対応するゲームシステムが実装された時点で
 この構造に追加する（現在のプレイヤーキャラクターは戦闘開始時に `packages/data` から
 都度生成される固定編成のため、まだ永続化対象がない）。
 

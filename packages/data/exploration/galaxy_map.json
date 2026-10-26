@@ -35,7 +35,7 @@
       "connections": ["node_base", "node_station_halyn"],
       "encounters": [
         { "id": "enc_oxa_resource", "type": "resource", "description": "氷層の下からエネルギー結晶を採取した。", "weight": 5, "resourceReward": { "ENERGY": 30 } },
-        { "id": "enc_oxa_anomaly", "type": "anomaly", "description": "磁場異常の正体が「逆さの月」であると判明した。", "weight": 3, "anomalyId": "AA-014" },
+        { "id": "enc_oxa_anomaly", "type": "anomaly", "description": "磁場異常の正体が「名前のない人」であると判明した。", "weight": 3, "anomalyId": "AA-014" },
         { "id": "enc_oxa_event", "type": "event", "description": "強い磁気嵐に遭遇したが、事なきを得た。", "weight": 2 }
       ],
       "source": "base"
@@ -76,7 +76,7 @@
       "tier": 3,
       "connections": ["node_station_halyn", "node_giant_thessia"],
       "encounters": [
-        { "id": "enc_zeta_anomaly", "type": "anomaly", "description": "この宙域特有の星異体「空腹の恒星」の痕跡を発見した。", "weight": 4, "anomalyId": "AA-001" },
+        { "id": "enc_zeta_anomaly", "type": "anomaly", "description": "この宙域特有の星異体「未完の太陽」の痕跡を発見した。", "weight": 4, "anomalyId": "AA-001" },
         { "id": "enc_zeta_newplanet", "type": "newPlanet", "description": "航路図にない未知の惑星を新たに発見した。", "weight": 3, "resourceReward": { "RESEARCH_POINTS": 40 } },
         { "id": "enc_zeta_enemy", "type": "enemy", "description": "領域を警戒する自律防衛システムと交戦した。", "weight": 3, "enemyEncounterId": "encounter_sentinel_construct" }
       ],

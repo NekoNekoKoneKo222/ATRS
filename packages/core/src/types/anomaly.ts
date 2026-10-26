@@ -41,5 +41,10 @@ export interface AnomalyDefinition {
   breachConditions: BreachCondition[];
   researchTrack: ResearchDataEntry[];
   drops: DropEntry[];
+  /**
+   * 安定して収容できている間、1収容サイクルあたりに生成される星異粒子(Astral Particle)量。
+   * Phase13で追加。既存データとの後方互換性のためoptionalとし、未指定の星異体は0として扱う。
+   */
+  particleYieldPerCycle?: number;
   source: "base" | "mod";
 }

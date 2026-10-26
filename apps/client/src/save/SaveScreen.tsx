@@ -1,5 +1,5 @@
 import type { Session } from "@supabase/supabase-js";
-import type { BaseState, ContainmentCollection, ExplorationState } from "@astral-archive/core";
+import type { BaseState, ContainmentCollection, ExplorationState, StoryState } from "@astral-archive/core";
 import { supabaseConfigured } from "../supabase/supabaseClient.js";
 import { useSave } from "./useSave.js";
 
@@ -7,9 +7,11 @@ interface Props {
   baseState: BaseState;
   explorationState: ExplorationState;
   containmentCollection: ContainmentCollection;
+  storyState?: StoryState;
   loadBaseState: (state: BaseState) => void;
   loadExplorationState: (state: ExplorationState) => void;
   loadContainmentCollection: (collection: ContainmentCollection) => void;
+  loadStoryState?: (state: StoryState) => void;
   session: Session | null;
 }
 
@@ -17,18 +19,22 @@ export function SaveScreen({
   baseState,
   explorationState,
   containmentCollection,
+  storyState,
   loadBaseState,
   loadExplorationState,
   loadContainmentCollection,
+  loadStoryState,
   session,
 }: Props) {
   const { message, conflict, saveLocal, loadLocal, saveToCloud, loadCloud, checkConflict, resolveConflict } = useSave({
     baseState,
     explorationState,
     containmentCollection,
+    ...(storyState ? { storyState } : {}),
     loadBaseState,
     loadExplorationState,
     loadContainmentCollection,
+    ...(loadStoryState ? { loadStoryState } : {}),
     session,
   });
 

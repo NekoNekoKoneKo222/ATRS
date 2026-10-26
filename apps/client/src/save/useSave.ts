@@ -6,11 +6,13 @@ import {
   deserializeSaveData,
   checkSaveModRequirements,
   compareSaveRecency,
+  createInitialStoryState,
   SaveDataSchema,
   type SaveData,
   type BaseState,
   type ExplorationState,
   type ContainmentCollection,
+  type StoryState,
 } from "@astral-archive/core";
 import { upsertCloudSave, fetchCloudSave, replaceSaveMods } from "@astral-archive/supabase";
 import { supabaseClient } from "../supabase/supabaseClient.js";
@@ -21,9 +23,13 @@ interface UseSaveDeps {
   baseState: BaseState;
   explorationState: ExplorationState;
   containmentCollection: ContainmentCollection;
+  /** Phase13で追加。省略時はストーリー進行を保存・復元しない（後方互換のためoptional）。 */
+  storyState?: StoryState;
   loadBaseState: (state: BaseState) => void;
   loadExplorationState: (state: ExplorationState) => void;
   loadContainmentCollection: (collection: ContainmentCollection) => void;
+  /** 省略可能：呼び出し元がストーリーシステムを持たない場合は何もしない */
+  loadStoryState?: (state: StoryState) => void;
   session: Session | null;
 }
 
@@ -44,9 +50,10 @@ export function useSave(deps: UseSaveDeps) {
       base: deps.baseState,
       exploration: deps.explorationState,
       containment: deps.containmentCollection,
+      ...(deps.storyState ? { story: deps.storyState } : {}),
       mods: INSTALLED_MODS,
     });
-  }, [deps.baseState, deps.explorationState, deps.containmentCollection]);
+  }, [deps.baseState, deps.explorationState, deps.containmentCollection, deps.storyState]);
 
   /** MOD要件を確認し、満たしていればセーブ内容を実際のゲーム状態へ反映する */
   const applySave = useCallback(
@@ -66,6 +73,8 @@ export function useSave(deps: UseSaveDeps) {
       deps.loadBaseState(save.base);
       deps.loadExplorationState(save.exploration);
       deps.loadContainmentCollection(save.containment);
+      // Phase12以前のセーブにはstoryが無いため、初期状態で安全に補う
+      deps.loadStoryState?.(save.story ?? createInitialStoryState());
       setMessage(`セーブ「${save.meta.slotName}」を読み込みました（保存日時: ${save.meta.savedAt}）。`);
       return true;
     },

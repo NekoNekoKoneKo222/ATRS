@@ -4,6 +4,7 @@ import { useContainment } from "./containment/useContainment.js";
 import { useExploration } from "./exploration/useExploration.js";
 import { useSupabaseAuth } from "./supabase/useSupabaseAuth.js";
 import { useMods } from "./mods/useMods.js";
+import { useStory } from "./story/useStory.js";
 
 // 各画面は選択されたタブのときだけ必要になるため、React.lazyで遅延読み込みし
 // 初回表示に不要なコードの評価・パースコストを後回しにする（Phase12最適化）。
@@ -23,10 +24,21 @@ const ModManagerScreen = lazy(() =>
 const WorkshopScreen = lazy(() =>
   import("./workshop/WorkshopScreen.js").then((m) => ({ default: m.WorkshopScreen }))
 );
+const StoryScreen = lazy(() => import("./story/StoryScreen.js").then((m) => ({ default: m.StoryScreen })));
 
-type ScreenId = "base" | "exploration" | "containment" | "combat" | "account" | "save" | "mods" | "workshop";
+type ScreenId =
+  | "base"
+  | "exploration"
+  | "containment"
+  | "combat"
+  | "account"
+  | "save"
+  | "mods"
+  | "workshop"
+  | "story";
 
 const TABS: { id: ScreenId; label: string }[] = [
+  { id: "story", label: "ストーリー" },
   { id: "base", label: "基地" },
   { id: "exploration", label: "探索" },
   { id: "containment", label: "研究" },
@@ -42,7 +54,7 @@ function ScreenLoadingFallback() {
 }
 
 export function App() {
-  const [screen, setScreen] = useState<ScreenId>("base");
+  const [screen, setScreen] = useState<ScreenId>("story");
   const { baseState, upgrade, resetBase, loadBaseState, lastMessage: baseMessage, gainResources, trySpendResources } =
     useBase();
   const containment = useContainment({ onSpendResources: trySpendResources });
@@ -52,6 +64,11 @@ export function App() {
   });
   const auth = useSupabaseAuth();
   const mods = useMods();
+  const story = useStory({
+    registries: mods.registries,
+    onDiscoverAnomaly: containment.discover,
+    onGainResources: gainResources,
+  });
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -77,6 +94,20 @@ export function App() {
       </nav>
 
       <Suspense fallback={<ScreenLoadingFallback />}>
+        {screen === "story" && (
+          <StoryScreen
+            state={story.state}
+            storyData={story.storyData}
+            currentEvent={story.currentEvent}
+            message={story.message}
+            begin={story.begin}
+            advance={story.advance}
+            loadStoryState={story.loadStoryState}
+            resetStory={story.resetStory}
+            isChapterLocked={story.isChapterLocked}
+            onRequestScreen={(target) => setScreen(target)}
+          />
+        )}
         {screen === "base" && (
           <BaseScreen baseState={baseState} upgrade={upgrade} resetBase={resetBase} lastMessage={baseMessage} />
         )}
@@ -116,9 +147,11 @@ export function App() {
             baseState={baseState}
             explorationState={exploration.explorationState}
             containmentCollection={containment.collection}
+            storyState={story.state}
             loadBaseState={loadBaseState}
             loadExplorationState={exploration.loadExplorationState}
             loadContainmentCollection={containment.loadContainmentCollection}
+            loadStoryState={story.loadStoryState}
             session={auth.session}
           />
         )}
